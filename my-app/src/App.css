@@ -8,13 +8,13 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    /*animation: App-logo-spin infinite 20s linear;*/
-  }
+  /*.App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }*/
 }
 
 .App-header {
-  background-color: #4E5166;
+  background-color: #4E5166 ;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -22,6 +22,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  
 }
 
 .App-link {
