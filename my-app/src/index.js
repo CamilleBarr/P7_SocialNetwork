@@ -13,19 +13,11 @@ import './index.css';
 //root.render(
 
 ReactDOM.render(
-  <Router>
-    <Routes>
       <Header />
-      <Route path="/login">
-        <Login />
-      </Route>
-    </Routes>
-  </Router>,
-
-  {/*}
+  /*{}
   <React.StrictMode>
     <App />
-</React.StrictMode>*/},
+</React.StrictMode>}*/,
 document.getElementById('root')
 );
 
