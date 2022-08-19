@@ -1,5 +1,5 @@
 //---------- fastify pour bodyparser les requetes et responses json + éviter async et await
-const fastify = require('fastify')({logger : true});
+const express= require('express');
 //--------- j'appelle la fonction mongoose
 const mongoose = require('mongoose');
 //---- inportation des modèles
@@ -14,12 +14,12 @@ const path = require('path');
 
 /*const bodyParser = require('body-parser');*/
 //--------- j'appelle la fonction express
-const app = fastify();
+const app = express();
 //---------- ajout de sécurité pour les hearders et les variables
 
 const dotenv = require('dotenv').config();
-/*const helmet = require('helmet');*/
-//app.use(helmet());
+const helmet = require('helmet');
+app.use(helmet());
 
 
 //---------- connexion à la base de données MongoDB. Ci-dessous = middleware
@@ -59,4 +59,4 @@ app.use("/api/auth", userRoutes);
 app.use("/api/main", mainRoutes);
 app.use("/images", fastify.static(path.join(__dirname, 'images')));
 
-module.exports = globalApp;
+module.exports = app;

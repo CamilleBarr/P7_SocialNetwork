@@ -1,5 +1,5 @@
-const fastify = require('fastify')({logger : true});
-const router = fastify.Router();
+const express = require('express');
+const router = express.Router();
 const auth = require('../middleware/auth');
 const multer = require('../middleware/multer-config');
 const mainControllers = require('../controllers/message');

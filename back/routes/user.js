@@ -1,5 +1,5 @@
-const fastify = require('fastify')({logger :true});
-const router = fastify.Router();
+const express = require('express');
+const router = express.Router();
 //const maxConnectionRequet = require('../middleware/limiter');
 const userController = require('../controllers/user');
 const email = require ('../middleware/email');
