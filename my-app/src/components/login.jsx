@@ -1,7 +1,7 @@
  /*import React from "react";
 
 
-export default function Login () {
+function Login () {
 
         /*{
         handleClick(e) {
@@ -30,7 +30,7 @@ export default function Login () {
     import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useRef } from "react";
-export default function Login() {
+function Login() {
   const passwordRef = useRef();
   const emailRef = useRef();
   let navigate = useNavigate();
@@ -77,3 +77,4 @@ export default function Login() {
     </section>
   );
 } 
+export default Login
