@@ -1,6 +1,6 @@
- /*import React from "react";
+ import React from "react";
 
-
+/*
 function Login () {
 
         /*{
@@ -27,7 +27,7 @@ function Login () {
     }*/
 
 
-    import React from "react";
+/*    import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useRef } from "react";
 function Login() {
@@ -73,8 +73,29 @@ function Login() {
       {/*
       <Link to="/signUp" className="signIn--button">
         Créer un compte
-  </Link>*/}
-    </section>
+  </Link>*/
+   /* </section>
   );
 } 
 export default Login
+*/
+
+import { useParams } from 'react-router-dom';
+
+export default function Login() {
+
+let { id } = useParams();
+
+return (
+
+<>
+
+<h1>Hello there user {id}</h1>
+
+<p>This is your awesome User Profile page</p>
+
+</>
+
+);
+
+}

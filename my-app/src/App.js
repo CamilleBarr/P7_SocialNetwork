@@ -1,33 +1,29 @@
 import React from 'react';
 import logo from './icon-left-font-monochrome-white.svg';
-import './App.css';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import reactDOM from "react-dom";
+//import './App.css';
+import { Router, Routes, Route } from "react-router-dom";
 
 import Login from './components/login';
 import Header from './components/header';
+import { Link } from "react-router-dom";
 {/*import Footer from './components/footer';*/};
+
 
 function App() {
   return (
-    <Router>
     <Routes>
-        <Header />
-        <Route path="/login">
-          <Login />
-        </Route>
-    </Routes>
-  </Router>,
-  {/*}
-    <Header />,
-    <Route path="/login">
-          <Login />
-  </Route>*/}
-  );
+        
+        <Route exact path="/:id" component={Login} />
+         
+        <Route exact path="/" component={Header} />
+  </Routes>
+  )
 }
 
 export default App;
 
-{/* 
+/* {
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from './components/login';
@@ -44,4 +40,4 @@ function App() {
 }
 
 export default App;
-*/}
+}*/
