@@ -1,4 +1,8 @@
- import React from "react";
+import React from "react";
+
+import ReactDOM from "react-dom";
+import { Link } from "react-router-dom";
+import {useRef, useState} from "react"
 
 /*
 function Login () {
@@ -84,16 +88,31 @@ import { useParams } from 'react-router-dom';
 
 export default function Login() {
 
-let { id } = useParams();
+  const passwordLog = useRef();
+  const emailLog = useRef();
+  const [errorEmail, setErrorEmail] = useState(null);
+
+  let { id } = useParams();
 
 return (
 
 <>
 
-<h1>Hello there user {id}</h1>
-
-<p>This is your awesome User Profile page</p>
-
+<h2>Avez-vous déjà créer votre compte ?</h2>
+<h3> Connectez-vous </h3> 
+        
+<form className="signIn__form">
+        <input type="email" placeholder="Email" ref={emailLog}/>
+        <input type="password" placeholder="Mot de passe" ref={passwordLog} />
+        <button className="signIn--button" >
+          Se connecter
+        </button>
+      </form>
+        <p>Vous n'avez pas encore crée votre compte ?</p>
+      <Link to="/signup" className="signIn--button">
+        S'inscrire
+      </Link>
+     
 </>
 
 );
