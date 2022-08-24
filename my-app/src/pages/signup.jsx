@@ -1,10 +1,11 @@
 import React from "react";
 
 import ReactDOM from "react-dom";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 
 export default function SignUp() {
+  const navigate = useNavigate('/userHomepage');
   const emailSignUp = useRef();
   const passwordSignUp = useRef();
   
@@ -55,12 +56,12 @@ export default function SignUp() {
     const newPassword = passwordSignUp.current.value;
 
     //fetch: send data to API
-    const urlSignUp = "http://localhost:3001/api/auth/signUp";
+    const urlUserHomepage = "http://localhost:3000/userHomepage";
     const formData = {
       email: newEmail,
       password: newPassword,
     };
-    fetch(urlSignUp, {
+    fetch(urlUserHomepage, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -87,7 +88,7 @@ export default function SignUp() {
           ref={passwordSignUp}
           onChange={handleChangePass}
         />
-        <button className="signIn--button" onSubmit={() => submitAccount}>
+        <button className="signIn--button" onSubmit={() => submitAccount} >
           S'inscrire
         </button>
       </form>

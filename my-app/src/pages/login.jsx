@@ -1,38 +1,15 @@
 import React from "react";
 
 import ReactDOM from "react-dom";
-import { Link } from "react-router-dom";
-import {useRef, useState} from "react"
+import { Link, useNavigate } from "react-router-dom";
+import {useRef, useState, } from "react"
 
 /*
 function Login () {
 
-        /*{
-        handleClick(e) {
-            console.log(this.input.current.value)
-        }
-        }*/
-        /*
-        return (
-            <h1>Welcome to our social network</h1>,
-        
-            <p className='form-group'>
-                <label>Email Groupomania</label>
-                <input type='email'></input>
-                <label>Mot de passe</label>
-                <input type='password'></input>,
-               
-            </p>,
-            <button onClick={this.handleClick}>
-            </button>/*,
-            {
-        <Link to ="/:id/"/>connecter.html</Link>}
-        )
-    }*/
 
 
-/*    import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+/*   
 import { useRef } from "react";
 function Login() {
   const passwordRef = useRef();
@@ -87,7 +64,7 @@ export default Login
 import { useParams } from 'react-router-dom';
 
 export default function Login() {
-
+  const navigate = useNavigate();
   const passwordLog = useRef();
   const emailLog = useRef();
   const [errorEmail, setErrorEmail] = useState(null);
@@ -104,7 +81,7 @@ return (
 <form className="signIn__form">
         <input type="email" placeholder="Email" ref={emailLog}/>
         <input type="password" placeholder="Mot de passe" ref={passwordLog} />
-        <button className="signIn--button" >
+        <button className="signIn--button" onClick={() => {navigate ('/userHomepage')}} >
           Se connecter
         </button>
       </form>
