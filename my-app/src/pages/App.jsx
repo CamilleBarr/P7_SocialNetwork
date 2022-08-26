@@ -27,7 +27,6 @@ const handleClick = event => {
       <Header />
       <main>  
           <Home/>
-          {isOnline === }
           <UserHomepage/>
           
         
