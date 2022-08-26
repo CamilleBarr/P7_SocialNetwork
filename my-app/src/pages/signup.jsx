@@ -72,8 +72,8 @@ export default function SignUp() {
 
   return (
     <section className="signIn">
-      <h2>Votre première visite sur ce site ?</h2>
-      <h3> Créer votre compte</h3>
+      <h3>Votre première visite sur ce site ? <br />Créer votre compte</h3>
+
       <form className="signIn__form" >
         <input
           type="email"
@@ -92,10 +92,6 @@ export default function SignUp() {
           S'inscrire
         </button>
       </form>
-      <p>Déjà un compte?</p>
-      <Link to="/login" className="signIn--button">
-        Se connecter
-      </Link>
     </section>
   );
 }

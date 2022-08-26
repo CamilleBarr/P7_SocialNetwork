@@ -1,36 +1,38 @@
 import React from 'react';
+import { useState } from 'react';
 import ReactDOM from "react-dom";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Login from './login';
+import SignUp from './signup';
 
-function Home () {
+function Home() {
     const logo = "../icon-left-font-monochrome-black.png";
-    
-    
-    return (
-    <>
-        <div /*className="App"*/>
-            <img src={logo} /*className="App-logo"*/ alt="logo Groupomanianoir sur fond blanc" />
-        </div>
-        <div>
-            <h2>Bienvenue sur votre réseau professionnel</h2>
+    const navigate = useNavigate();
+    const [isShown, setIsShown] = useState(false);
 
-                <p>
-                Si vous êtes nouveau sur ce réseau, merci de
-                    <span className="input-group-btn">
-                        <Link to="/signup">
-                        Créer votre compte
-                        </Link>
-                    </span>
-                </p>
-                <p>
-                autrement, veuillez-vous
-                    <span className="button">
-                        <Link to="/login">
-                            Connecter
-                        </Link>
-                    </span>
-                </p>
+
+    const showOnClick = event => {
+        // 👇️ toggle shown state
+        setIsShown(current => !current);
+
+
+        // 👇️ or simply set it to true
+        // setIsShown(true);
+    };
+
+    return (
+        <>
+            <div>
+                <span className="input-group-btn">
+                    <button onClick={showOnClick}>
+                        vous connecter
+                    </button>
+                </span>
             </div>
+            {isShown && (<SignUp />)
+            }
+            {isShown && (<Login />)
+            }
         </>
     )
 }

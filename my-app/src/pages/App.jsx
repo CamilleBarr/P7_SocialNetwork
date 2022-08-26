@@ -8,30 +8,29 @@ import { BrowserRouter, Router, Routes, Route} from "react-router-dom";
 
 //import { Link } from "react-router-dom";
 import Home from './home';
-import Login from './login';
-import SignUp from './signup';
 import UserHomepage from './userHomepage';
 import Footer from '../components/footer';
 import Header from '../components/header';
 
 
 function App() {
+//const [isOnline, setIsOnline]=useState(false);
+/*
+const handleClick = event => {
+  setIsOnline(current => !current) 
 
+}*/
 
   return (
     <BrowserRouter>
       
       <Header />
-      <main>      
-      <Routes>
-        <Route exact path="/" element={<Home/>} />
-        <Route exact path="/login" element={<Login/>} />
-        <Route exact path="/signup" element={<SignUp/>} />
-        <Route exact path="/:id" element={<userHomepage/>} />
-        <Route exact path="/createMessage" element={<createMessage/>} />
-      
-      
-      </Routes>
+      <main>  
+          <Home/>
+          {isOnline === }
+          <UserHomepage/>
+          
+        
       </main>
       <Footer />
     </BrowserRouter>

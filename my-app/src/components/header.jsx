@@ -3,12 +3,13 @@ import React from'react';
 //import '../App.css';
 
 function Header() {
-  const title = "Groupomania's Social Network"
+  const title = "Groupomania's Social Network";
+  
   return (
-
-
+    <>
       <h1>{title} </h1>
-      
+      <h2>Bienvenue sur votre réseau professionnel</h2>
+    </> 
 
 )
 }

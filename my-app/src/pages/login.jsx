@@ -75,8 +75,7 @@ return (
 
 <>
 
-<h2>Avez-vous déjà créer votre compte ?</h2>
-<h3> Connectez-vous </h3> 
+<h3>Vous avez déjà enregistré votre profil ? <br />Connectez-vous</h3>
         
 <form className="signIn__form">
         <input type="email" placeholder="Email" ref={emailLog}/>
@@ -85,10 +84,6 @@ return (
           Se connecter
         </button>
       </form>
-        <p>Vous n'avez pas encore crée votre compte ?</p>
-      <Link to="/signup" className="signIn--button">
-        S'inscrire
-      </Link>
      
 </>
 
