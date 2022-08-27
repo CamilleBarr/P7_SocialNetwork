@@ -68,6 +68,7 @@ export default function Login() {
   const passwordLog = useRef();
   const emailLog = useRef();
   const [errorEmail, setErrorEmail] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   let { id } = useParams();
 
