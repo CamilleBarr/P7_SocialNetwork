@@ -14,7 +14,7 @@ export const MixDataProvider = ({ children }) => {
         fetch(`http://localhost:3000/api/user/${userId}`)
             .then((res) => {
                 console.log(res.data)
-                setDataUserId(res.data.id)
+                //setDataUserId(res.data.id)
                 setDataUser(res.data)
             })
     }, [])

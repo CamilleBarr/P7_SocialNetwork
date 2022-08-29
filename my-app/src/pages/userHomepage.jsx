@@ -8,19 +8,17 @@ import Message from '../components/message';
 
 export default function UserHomepage() {
 
-    const [isShown, SetIsShown] = useState()
+    //const [isShown, SetIsShown] = useState()
     //let {userId}=useParams();
     return (
         <section>
             <div>
-                <h1>mon profil</h1>
-                <form>
-                    <input type="image" id="'image" alt="profile picture" />
-                    <input type="text" placeholder="Nom" />
-                    <input type="text" placeholder="Prénom" />
-                </form>
                 <section>
+                    <h1>Exprimez-vous !</h1>
                     <Message/>
+                </section>
+                <section>
+                    <h1>Lisez les messages déjà postés :</h1>
                     <MessageList/>
                 </section>
             </div>

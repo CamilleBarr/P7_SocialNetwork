@@ -29,10 +29,10 @@ export default function Sidebar() {
           <div>
             <ul >
               <li>
-                <Link to="/:id">Home</Link>
+                <Link to="../userHomepage">Home</Link>
               </li>
               <li>
-                <Link to="/:id/profil">Profile</Link>
+                <Link to="./profil">Profile</Link>
               </li>
               <li>
                 <Link to="/">Déconnection</Link>

@@ -25,8 +25,7 @@ const handleClick = event => {
 }*/
 
   return (
-    <React.StrictMode>
-    <Router>
+    <BrowserRouter>
       <MixDataProvider>
       <Header />   
       <Routes>
@@ -39,8 +38,7 @@ const handleClick = event => {
       </Routes>
       <Footer />
       </MixDataProvider>
-      </Router>
-    </React.StrictMode>
+    </BrowserRouter>
   )
 }
 
