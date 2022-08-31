@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 
 export default function SignUp() {
-  const navigate = useNavigate('./userHomepage');
+  const navigate = useNavigate();
   const emailSignUp = useRef();
   const passwordSignUp = useRef();
   
@@ -87,7 +87,7 @@ export default function SignUp() {
           placeholder="Mot de passe"
           ref={passwordSignUp}
         />
-        <button className="signIn--button" onClick={navigate} >
+        <button className="signIn--button" onClick={() => {navigate ('/userHomepage')}} >
           S'inscrire
         </button>
       </form>

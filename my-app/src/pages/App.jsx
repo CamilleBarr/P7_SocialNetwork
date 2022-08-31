@@ -1,5 +1,4 @@
 import React from 'react';
-import {useContext} from 'react';
 //import logo from './icon-left-font-monochrome-white.svg';
 //import reactDOM from "react-dom";
 //import './App.css';
