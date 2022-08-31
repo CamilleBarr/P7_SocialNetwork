@@ -1,15 +1,15 @@
-const Message = require('../models/Message');
+const Post = require('../models/post');
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const dotenv = require("dotenv").config();
 
-exports.createMessage = (req, res, next) => {
-    const messageObject = JSON.parse(req.body.message);
-    delete messageObject._id;
-    //delete messageObject._userId;
-    const newMessage = new Message({
-        ...messageObject,
+exports.createPost = (req, res, next) => {
+    const postObject = JSON.parse(req.body.post);
+    delete postObject._id;
+    //delete postObject._userId;
+    const newPost = new Post({
+        ...postObject,
         imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
         likes: 0,
         dislikes: 0,
@@ -17,7 +17,7 @@ exports.createMessage = (req, res, next) => {
         usersDisliked: [" "],
     });
 
-    newMessage.save()
+    newPost.save()
         .then(() => {
             res.status(201).json({
                 message: "Message enregistré !"
@@ -28,17 +28,17 @@ exports.createMessage = (req, res, next) => {
         }));
 };
 
-exports.updateMessage = (req, res, next) => {
-    const messageObject = req.file ? {
-        ...JSON.parse(req.body.mesage),
+exports.updatePost = (req, res, next) => {
+    const postObject = req.file ? {
+        ...JSON.parse(req.body.post),
         imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
     } : {
         ...req.body
     };
-    Message.updateOne({
+    Post.updateOne({
             _id: req.params.id
         }, {
-            ...messageObject,
+            ...postObject,
             _id: req.params.id
         })
         .then(() => res.status(200).json({
@@ -49,32 +49,24 @@ exports.updateMessage = (req, res, next) => {
         }));
 };
 
-exports.getOneMessage = (req, res, next) => {
-    Message.findOne({
-            _id: req.params.id
-        })
-        .then(Message => res.status(200).json(Message))
+
+
+exports.getAllPosts = (req, res, next) => {
+    Post.find()
+        .then(Post => res.status(200).json(Post))
         .catch(error => res.status(400).json({
             error
         }));
 };
 
-exports.getAllMessages = (req, res, next) => {
-    Message.find()
-        .then(Message => res.status(200).json(Message))
-        .catch(error => res.status(400).json({
-            error
-        }));
-};
-
-exports.deleteMessage = (req, res, next) => {
-    const messageObject = req.file ? {
-        ...JSON.parse(req.body.message),
+exports.deletePost = (req, res, next) => {
+    const postObject = req.file ? {
+        ...JSON.parse(req.body.post),
         imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
     } : {
         ...req.body
     };
-    Message.deleteOne({
+    Post.deleteOne({
             _id: req.params.id
         })
         .then(() => {
@@ -88,20 +80,20 @@ exports.deleteMessage = (req, res, next) => {
 };
 
 
-exports.checkMessage = (req, res, next) => {
+exports.checkPost = (req, res, next) => {
     let like = req.body.like;
     let userId = req.body.userId;
 
-    Message.findOne({
+    Post.findOne({
             _id: req.params.id
         })
-        .then(function (message) {
+        .then(function (post) {
             switch (like) {
                 case 1:
                     if (
-                        !message.usersLiked.includes(userId) && like === 1
+                        !post.usersLiked.includes(userId) && like === 1
                     ) {
-                        Message.updateOne({
+                        Post.updateOne({
                                     _id: req.params.id
                                 },
                                 {
@@ -125,8 +117,8 @@ exports.checkMessage = (req, res, next) => {
                     break;
 
                 case 0:
-                    if (message.usersLiked.includes(userId)) {
-                        Message.updateOne({
+                    if (post.usersLiked.includes(userId)) {
+                        Post.updateOne({
                                     _id: req.params.id
                                 },
                                 {
@@ -147,8 +139,8 @@ exports.checkMessage = (req, res, next) => {
                                 });
                             });
                     }
-                    if (message.usersDisliked.includes(userId)) {
-                        Message.updateOne({
+                    if (post.usersDisliked.includes(userId)) {
+                        Post.updateOne({
                                     _id: req.params.id
                                 },
                                 {
@@ -177,4 +169,14 @@ exports.checkMessage = (req, res, next) => {
                 error: error
             });
         });
+};
+
+exports.getOnePost = (req, res, next) => {
+    Post.findOne({
+            _id: req.params.id
+        })
+        .then(Post => res.status(200).json(Post))
+        .catch(error => res.status(400).json({
+            error
+        }));
 };

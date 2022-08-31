@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 //--------- j'importe le modèle d'authentification utilisateur
 const userRoutes = require('./routes/user');
 //--------- j'importe le modèle des sauces
-const mainRoutes = require('./routes/message');
+const mainRoutes = require('./routes/post');
 
 const path = require('path');
 
@@ -55,8 +55,8 @@ app.use((req, res, next) => {
 
 
 //---------- on enregistre les routes comme ceci :
-app.use("/user", userRoutes);
-app.use("/main", mainRoutes);
+app.use("/api/auth", userRoutes);
+app.use("/api/post", postRoutes);
 app.use("/images", express.static(path.join(__dirname, 'images')));
 
 module.exports = app;

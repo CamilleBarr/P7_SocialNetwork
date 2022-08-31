@@ -5,10 +5,6 @@ const messageSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    tag: {
-        type: String,
-        required: true
-    },
     title: {
         type: String,
         required: true
@@ -32,4 +28,4 @@ const messageSchema = mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model('Message', messageSchema);
+module.exports = mongoose.model('Post', postSchema);

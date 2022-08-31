@@ -4,6 +4,9 @@ import {message} from './message';
 function MessageList({ message, updateMessage }) {
 
 const allMessages = [];
+const message = {
+    
+}
 
 const noMessageText = "Personne n'a encore laissé de message. Soyez le premier ?";
 
