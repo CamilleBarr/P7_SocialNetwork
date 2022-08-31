@@ -1,105 +1,45 @@
-import React from'react';
+import React from 'react';
 //import '../App.css';
 
 function Message() {
 
+    const today = new Date(),
+        date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        //<button onClick={handleClick}>Publier</button>
 
-    const [showMenu, setShowMenu] = React.useState(false);
-    function handleClick() {
-      setShowMenu((prevShowMenu) => !prevShowMenu);
-    }
-    const [showComments, setShowComments] = React.useState(false);
-
-    function handleClickComments() {
-        setShowComments((prevShowComments) => !prevShowComments);
-        
-    }
-    const [likeCount, setLikeCount] = React.useState(0);
-
-    function like() {
-      setLikeCount((prevLikeCount) => prevLikeCount + 1);
-      
-      
-    }
-
-   
-    return ( 
+    return (
         <>
-        <section >
-        <div >
-            <div >
-                <div >pic</div>
-                <input
-                        type="text"
-                        placeholder="Nom"
-                        className="post--newComments"
+            <section >
+                <form >
+                    <input type="image" alt="image accompagnant le message" 
                     />
-                <input
-                        type="text"
-                        placeholder="Prénom"
-                        className="post--newComments"
-                    />
-            </div>
-            <div >
-                <button onClick={handleClick}>*Edit</button>
-                {showMenu ? (
-                    <div >
-                    <p>Modifier la publication</p>
-                    <p>Supprimer la publication</p>
-                    </div>
-                ) : null}
-            </div>
-            
-            <div>
-                <div>
                     <input
                         type="text"
                         placeholder="Déposer un message"
                         className="post--newComments"
                     />
-                
-                    <div >
-                        <div >
-                            <button onClick={like}>
-                                {likeCount} 
-                            </button>   
-                            <div>
-                                <button onClick={handleClickComments}>
-                                    Afficher / Masquer les commentaires
-                                </button>
-                                {showComments && <p>Liste</p>}
-                            </div>
-                        </div>
-                        
-                        <div>
+                    
+                    
+                </form>
+            </section>
+        </>
 
-                            <input
-                                type="text"
-                                placeholder="Ecrivez un commentaire"
-                                className="post--newComments"
-                            />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    </>
-    /*
-
-    <section>
-        <form >
-        <input type="text" placeholder="text"/>
-        <button className="signIn--button"  >
-          Partager
-        </button>
-        </form>
-        </section>
-        */
-)
+    )
 }
 
 export default Message
+
+/*
+    
+        <section>
+            <form >
+            <input type="text" placeholder="text"/>
+            <button className="signIn--button"  >
+              Partager
+            </button>
+            </form>
+            </section>
+            */
 
 /*
 function CreateMessage() {

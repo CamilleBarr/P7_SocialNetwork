@@ -27,16 +27,14 @@ const handleClick = event => {
   return (
     <BrowserRouter>
       <MixDataProvider>
-      <Header />   
-      <Routes>
-        
-        <Route exact path="/" element={<Home/>} />
-        <Route exact path="/login" element={<Login/>} />
-        <Route exact path="/signup" element={<SignUp/>} />
-        <Route exact path="/:id" element={<UserHomepage/>} />
-      
-      </Routes>
-      <Footer />
+        <Header />   
+          <Routes>        
+            <Route exact path="/" element={<Home/>} />
+            <Route exact path="/login" element={<Login/>} />
+            <Route exact path="/signup" element={<SignUp/>} />
+            <Route exact path="/:id" element={<UserHomepage/>} />      
+          </Routes>
+        <Footer />
       </MixDataProvider>
     </BrowserRouter>
   )

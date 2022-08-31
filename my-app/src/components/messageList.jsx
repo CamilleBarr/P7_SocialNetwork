@@ -19,15 +19,7 @@ const noMessageText = "Personne n'a encore laissé de message. Soyez le premier 
                 {allMessages.map((message, index) => (
                     <li key={`${message}-${index}`}>{message}</li>
                 ))}
-                {/*
-                <ul>
-                    {comments.map((comment, index) => (
-                        <li key={`${comment}-${index}`}>{comment}</li>
-                    ))}
-                </ul>
-                    */}
             </ul>
-
         </div>
     )
 }

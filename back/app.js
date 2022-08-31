@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 //--------- j'importe le modèle d'authentification utilisateur
 const userRoutes = require('./routes/user');
 //--------- j'importe le modèle des sauces
-const mainRoutes = require('./routes/main');
+const mainRoutes = require('./routes/message');
 
 const path = require('path');
 
@@ -38,7 +38,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(fastify.json());
+app.use(express.json());
 //---------- headers adapté pour les CORS 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -55,8 +55,8 @@ app.use((req, res, next) => {
 
 
 //---------- on enregistre les routes comme ceci :
-app.use("/api/auth", userRoutes);
+app.use("/api/user", userRoutes);
 app.use("/api/main", mainRoutes);
-app.use("/images", fastify.static(path.join(__dirname, 'images')));
+app.use("/images", express.static(path.join(__dirname, 'images')));
 
 module.exports = app;

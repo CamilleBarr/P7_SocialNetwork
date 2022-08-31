@@ -7,7 +7,7 @@ const dotenv = require('dotenv').config();
 //const cryptJs = require('crypto-js'); 
 
 //---------- inscription avec mot de passe sécurisé et class user / async
-exports.signup = (req, res, next) => {
+exports.signup = async (req, res, next) => {
 
     console.log("email signing up : ", req.body.email);
     console.log("pwd in signing up: ", req.body.password);
@@ -35,7 +35,7 @@ exports.signup = (req, res, next) => {
 
 //---------- connexion à la plateforme avec vérification compte existant et verification password
 // avec gestion d'erreur d'exécution de la requete au serveur, err verif mot de passe, err user not exist
-exports.login = (req, res, next) => {
+exports.login = async (req, res, next) => {
 
     console.log("email loging up : ", req.body.email);
     console.log("pwd in loging up: ", req.body.password);

@@ -12,6 +12,7 @@ export default function UserHomepage() {
     //let {userId}=useParams();
     return (
         <section>
+            
             <div>
                 <section>
                     <h1>Exprimez-vous !</h1>

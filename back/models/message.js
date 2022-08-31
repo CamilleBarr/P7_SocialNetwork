@@ -13,10 +13,6 @@ const messageSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    service: {
-        type: String,
-        required: true
-    },
     message: {
         type: String,
         required: true
@@ -30,16 +26,7 @@ const messageSchema = mongoose.Schema({
         required: true,
         default:0,
     },
-    dislikes: {
-        type: Number,
-        required: true,
-        default : 0,
-    },
     usersLiked: {
-        type: [String],
-        required: true
-    },
-    usersDisliked: {
         type: [String],
         required: true
     },

@@ -123,28 +123,6 @@ exports.checkMessage = (req, res, next) => {
                             });
                     }
                     break;
-                case -1:
-                    if (
-                        !message.usersDisliked.includes(userId) && like === -1
-                    ) {
-                        Message.updateOne({
-                            _id: req.params.id
-                        },
-                        {
-                            $inc: {dislikes: 1
-                            },
-                            $push: {usersDisliked: userId
-                            }
-                        }
-                    )
-                            .then(() => res.status(201).json({
-                                message: 'Ce message est enregistré dans vos messages détestés'
-                            }))
-                            .catch((error) => res.status(400).json({
-                                error
-                            }));
-                    }
-                    break;
 
                 case 0:
                     if (message.usersLiked.includes(userId)) {
