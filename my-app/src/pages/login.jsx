@@ -1,8 +1,7 @@
 import React from "react";
 
-import ReactDOM from "react-dom";
-import { Link, useNavigate } from "react-router-dom";
-import {useRef, useState, } from "react"
+import { useNavigate } from "react-router-dom";
+import {useRef } from "react"
 
 /*
 function Login () {
@@ -61,16 +60,11 @@ function Login() {
 export default Login
 */
 
-import { useParams } from 'react-router-dom';
 
 export default function Login() {
   const navigate = useNavigate();
   const passwordLog = useRef();
   const emailLog = useRef();
-  const [errorEmail, setErrorEmail] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-
-  let { id } = useParams();
 
 return (
 

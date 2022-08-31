@@ -1,15 +1,13 @@
 import React from "react";
-
-import ReactDOM from "react-dom";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 
 export default function SignUp() {
-  const navigate = useNavigate();
+  const navigate = useNavigate('./userHomepage');
   const emailSignUp = useRef();
   const passwordSignUp = useRef();
   
-  const [errorEmail, setErrorEmail] = useState(null);
+  const [errorEmail] = useState(null);
   
   // let emailRegExp = new RegExp('^[a-zA-Z.-_]{3,30}[@]{1}[a-zA-Z.-_]{3,30}[.]{1}[a-z]{2}[^0-9]$');
   // let passwordRegExp = new RegExp ('^[A-Za-z0-9]\w{8,}$');
@@ -50,30 +48,29 @@ export default function SignUp() {
   //   }
   // }
 
-  function submitAccount(event) {
-    event.preventDefault();
-    const newEmail = emailSignUp.current.value;
-    const newPassword = passwordSignUp.current.value;
+  // function submitAccount(event) {
+  //   event.preventDefault();
+  //   const newEmail = emailSignUp.current.value;
+  //   const newPassword = passwordSignUp.current.value;
 
-    //fetch: send data to API
-    const urlUserHomepage = "http://localhost:3000/";
-    const formData = {
-      email: newEmail,
-      password: newPassword,
-    };
-    fetch(urlUserHomepage, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    }).then(function(res) {
-      if (res.ok) {
-        return res.json();
-      }
-    });
-  }
-  navigate("/userHomepage", { replace: true });
+  //   //fetch: send data to API
+  //   const urlUserHomepage = "http://localhost:3000/";
+  //   const formData = {
+  //     email: newEmail,
+  //     password: newPassword,
+  //   };
+  //   fetch(urlUserHomepage, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(formData),
+  //   }).then(function(res) {
+  //     if (res.ok) {
+  //       return res.json();
+  //     }
+  //   });
+  // }
   return (
     <section className="signIn">
       <h3>Votre première visite sur ce site ? <br />Créer votre compte</h3>
@@ -90,7 +87,7 @@ export default function SignUp() {
           placeholder="Mot de passe"
           ref={passwordSignUp}
         />
-        <button className="signIn--button" onClick={submitAccount} >
+        <button className="signIn--button" onClick={navigate} >
           S'inscrire
         </button>
       </form>
