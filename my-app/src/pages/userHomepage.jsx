@@ -2,7 +2,9 @@ import React from 'react';
 import ReactDOM from "react-dom";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useRef, useState, useContext, } from "react";
-import Sidebar from '../components/sidebar';
+import { IdContext } from '../App'
+import { TokenContext } from '../App'
+import { NameContext } from '../App'
 import MessageList from '../components/messageList';
 import Message from '../components/message';
 

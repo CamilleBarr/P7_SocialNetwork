@@ -1,7 +1,10 @@
 import React from "react";
 
 import { useNavigate } from "react-router-dom";
-import {useRef } from "react"
+import {useRef} from "react"
+import { TokenContext } from '../App'
+import { IdContext } from '../App'
+import { NameContext } from '../App'
 
 /*
 function Login () {
@@ -63,8 +66,50 @@ export default Login
 
 export default function Login() {
   const navigate = useNavigate();
-  const passwordLog = useRef();
-  const emailLog = useRef();
+
+  const inputLogIn = useRef([])
+    const addInputLogIn = (el) => {
+        inputLogIn.current.push(el)
+    }
+
+  let [token, setToken] = React.useContext(TokenContext);
+  let [userId, setUserId] = React.useContext(IdContext);
+  let [name, setName] = React.useContext(NameContext);
+
+  setToken(undefined);
+  setUserId('');
+
+  const handleForm = (event, props) => {
+    event.preventDefault();
+    const email = inputLogIn.current[0];
+    const password = inputLogIn.current[1];
+
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+      },
+      body: JSON.stringify({
+          email: email.value,
+          password: password.value,
+      }),
+  }
+  fetch(
+      'http://localhost:3000/auth/login',
+      requestOptions
+  )
+      .then((response) => response.json())
+      .then((data) => {
+          setToken(data.token);
+          setUserId(data.userId);
+          setName(data.name);
+          navigate('/homePage')})
+          .catch(function (error) {
+              navigate('/')
+          })
+  }
+
 
 return (
 
@@ -72,12 +117,10 @@ return (
 
 <h3>Vous avez déjà enregistré votre profil ? <br />Connectez-vous</h3>
         
-<form className="signIn__form">
-        <input type="email" placeholder="Email" ref={emailLog}/>
-        <input type="password" placeholder="Mot de passe" ref={passwordLog} />
-        <button className="signIn--button" onClick={() => {navigate ('/userHomepage')}} >
-          Se connecter
-        </button>
+<form className="signIn__form" onSubmit={handleForm}>
+        <input type="email" name="emailLogIn" placeholder="Email" ref={addInputLogIn}/>
+        <input type="password" name="passwordLogIn" placeholder="Mot de passe" ref={addInputLogIn} />
+        <input type="submit" className="signIn--button" value=" Se connecter"/>
       </form>
      
 </>

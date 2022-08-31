@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 //import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import App from './pages/App';
+import App from './App';
 //import Feed from "./components/Feed";
 //import Profile from "./components/Profile";
 //import Home from "./components/Home";

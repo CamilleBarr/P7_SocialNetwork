@@ -2,8 +2,8 @@ import React from 'react';
 import { useState } from 'react';
 import ReactDOM from "react-dom";
 import { useNavigate } from "react-router-dom";
-import Login from './login';
-import SignUp from './signup';
+import Login from '../components/login';
+import SignUp from '../components/signup';
 
 function Home() {
     const logo = "../icon-left-font-monochrome-black.png";
