@@ -26,8 +26,8 @@ setUserId('');
 
 const handleForm = (event, props) => {
   event.preventDefault();
-  const email = inputLogIn.current[0];
-  const password = inputLogIn.current[1];
+  const email = inputSignUp.current[0];
+  const password = inputSignUp.current[1];
 
   const requestOptions = {
     method: 'POST',
