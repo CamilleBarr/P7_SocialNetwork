@@ -33,7 +33,7 @@ const handleClick = event => {
             <Route exact path="/" element={<Home/>} />
             <Route exact path="/login" element={<Login/>} />
             <Route exact path="/signup" element={<SignUp/>} />
-            <Route exact path="/:id" element={<UserHomepage/>} />      
+            <Route exact path="/userHomepage" element={<UserHomepage/>} />      
           </Routes>
         <Footer />
       </MixDataProvider>
