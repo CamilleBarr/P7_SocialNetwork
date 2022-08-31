@@ -55,8 +55,8 @@ app.use((req, res, next) => {
 
 
 //---------- on enregistre les routes comme ceci :
-app.use("/api/user", userRoutes);
-app.use("/api/main", mainRoutes);
+app.use("/user", userRoutes);
+app.use("/main", mainRoutes);
 app.use("/images", express.static(path.join(__dirname, 'images')));
 
 module.exports = app;

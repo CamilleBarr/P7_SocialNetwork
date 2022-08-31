@@ -1,27 +1,26 @@
-import React, { createContext, useState, useEffect, useContext } from "react";
+import React, { createContext, useState } from "react";
 
 export const MixDataContext = createContext({});
 
 export const MixDataProvider = ({ children }) => {
    
 
-    const [dataUser, setDataUser] = useState({})
-    const LStoken = localStorage.getItem('token')
-    const userId = localStorage.getItem('id')
-    const [dataUserId, setDataUserId] = useState('')
+    const [token, setToken] = useState()
+    const [userId, setUserId] = useState()
+    const [name, setName] = useState()
 
-    useEffect(() => {
-        fetch(`http://localhost:3000/api/user/${userId}`)
-            .then((res) => {
-                console.log(res.data)
-                //setDataUserId(res.data.id)
-                setDataUser(res.data)
-            })
-    }, [])
+    // useEffect(() => {
+    //     fetch(`http://localhost:3000/api/user/${userId}`)
+    //         .then((res) => {
+    //             console.log(res.data)
+    //             //setDataUserId(res.data.id)
+    //             setDataUser(res.data)
+    //         })
+    // }, [])
 
     return (
         <MixDataContext.Provider value={{
-            dataUser, LStoken, userId, dataUserId
+            token, userId, name
         }}>
             {children}
         </MixDataContext.Provider>
@@ -30,4 +29,4 @@ export const MixDataProvider = ({ children }) => {
 
 
 
-//export default DataContext;
+export default MixDataProvider;
