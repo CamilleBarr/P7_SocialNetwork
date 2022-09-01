@@ -99,12 +99,12 @@ export default function Login() {
       'http://localhost:3000/auth/login',
       requestOptions
   )
-      .then((response) => response.json())
+      .then((resp) => res.json())
       .then((data) => {
           setToken(data.token);
           setUserId(data.userId);
           setName(data.name);
-          navigate('/homePage')})
+          navigate('/homepage')})
           .catch(function (error) {
               navigate('/')
           })

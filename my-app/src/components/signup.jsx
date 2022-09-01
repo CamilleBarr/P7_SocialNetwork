@@ -53,7 +53,7 @@ setUserId('');
     <section className="signUp">
       <h3>Votre première visite sur ce site ? <br />Créer votre compte</h3>
 
-      <form className="signUp__form" onSubmit={() =>Navigate('./userHomepage')} >
+      <form className="signUp__form" onSubmit={() =>Navigate('./homepage')} >
         <input
           type="email"
           name="emailSignUp"

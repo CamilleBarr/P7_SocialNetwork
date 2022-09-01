@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const messageSchema = mongoose.Schema({
+const postSchema = mongoose.Schema({
     userId: {
         type: String,
         required: true

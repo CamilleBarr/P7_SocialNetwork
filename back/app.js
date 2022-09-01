@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 //--------- j'importe le modèle d'authentification utilisateur
 const userRoutes = require('./routes/user');
 //--------- j'importe le modèle des sauces
-const mainRoutes = require('./routes/post');
+const postRoutes = require('./routes/post');
 
 const path = require('path');
 

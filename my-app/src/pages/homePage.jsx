@@ -8,7 +8,7 @@ import { NameContext } from '../App'
 //import MessageList from '../components/messageList';
 import Message from '../components/message';
 
-export default function UserHomepage() {
+export default function HomePage() {
 
     //const [isShown, SetIsShown] = useState()
     //let {userId}=useParams();
@@ -19,6 +19,9 @@ export default function UserHomepage() {
                 <section>
                     <h1>Exprimez-vous !</h1>
                     <Message/>
+                </section>
+                <section>
+                    
                 </section>
                 <section>
                     <h1>Lisez les messages déjà postés :</h1>
