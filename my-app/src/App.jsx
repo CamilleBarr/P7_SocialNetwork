@@ -33,7 +33,6 @@ const [connection, setConnection] = useState(false);
                     <ShoppingList cart={cart} updateCart={updateCart} />
                 </div> */}
             
-                <Route path="/" element={<Navigate replace to='/homePage'/>} />
                 <Route path="/login" element={<Login/>} />
                 <Route path="/signup" element={<SignUp/>} />
                 <Route path="/homePage" element={<HomePage/>} />      

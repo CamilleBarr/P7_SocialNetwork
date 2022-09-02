@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState, useNavigate} from 'react';
+import {useState} from 'react';
 //import '../App.css';
 
 function CreatePost() {
@@ -47,14 +47,21 @@ function CreatePost() {
         <>
             <section >
                 <form onSubmit={handleSubmit}>
-                    <img type="file" name="image" accept="image/png, image/jpeg, image/jpg" alt= "" onChange={(e) => setFileImg(e.target.files)}
+                <label for="title" onChange={(e) => setTitle(e.target.value)}>Titre</label>
+                    <input
+                        name="message"
+                        type="text"
+                        placeholder="Titre"
+                        onChange={(e) => setMessage(e.target.value)}
                     />
-                    <label for="message" onChange={(e) => setTitle(e.target.value)}>Votre message</label>
+                    <label for="message" onChange={(e) => setMessage(e.target.value)}>Votre message</label>
                     <input
                         name="message"
                         type="textarea"
                         placeholder="Déposer un message"
                         onChange={(e) => setMessage(e.target.value)}
+                    />
+                    <input type="file" name="image" accept="image/png, image/jpeg, image/jpg" alt= "" onChange={(e) => setFileImg(e.target.files)}
                     />
                     <input type="submit" value="Partager" />
                     

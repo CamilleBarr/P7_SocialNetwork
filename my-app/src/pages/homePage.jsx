@@ -5,7 +5,7 @@ import { useRef, useState, useContext, } from "react";
 import { IdContext } from '../App'
 import { TokenContext } from '../App'
 import { NameContext } from '../App'
-import ListOfPosts from '../components/displayPosts';
+import DisplayPosts from '../components/displayPosts';
 import CreatePost from '../components/createPost';
 
 export default function HomePage() {
@@ -25,7 +25,7 @@ export default function HomePage() {
                 </section>
                 <section>
                     <h1>Lisez les messages déjà postés :</h1>
-                    <ListOfPosts/>   
+                    <DisplayPosts/>
                 </section>
             </div>
             

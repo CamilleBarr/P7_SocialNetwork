@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import Post from './createPost';
 
-function displayPosts () {
+function DisplayPosts () {
     const noMessageText = "Personne n'a encore laissé de message. Soyez le premier ?"
-    const [posts, setPosts] = useState([])
+    const [posts, setPosts] = useState([]);
     useEffect(()=> {
-        fetch('http://localhost:3000/homepage/posts'
+        fetch('http://localhost:3000/homepage/', {
+            method : "GET",
+            headers : {'authorization:' : `Bearer $(token)}`
+        }})
             .then((res)=>{res.json()})
             .then((allPosts)=>{setPosts(allPosts)})
             .catch((err)=>{
-                alert('E-mail ou mot de passe invalide');
+                alert("Impossible d'afficher les messages postés");
                 console.log(err)
             })
-        )})
-    
+        
+        })
     return (
          
         <div>
@@ -34,4 +37,4 @@ function displayPosts () {
 
 
 
-export default displayPosts;
+export default DisplayPosts;
