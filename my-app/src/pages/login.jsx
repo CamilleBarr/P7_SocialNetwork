@@ -1,15 +1,11 @@
 import React from "react";
 
-import { useNavigate } from "react-router-dom";
-import {useRef} from "react"
-import { TokenContext } from '../App'
-import { IdContext } from '../App'
-import { NameContext } from '../App'
+import LogOrSign from '../components/logOrSign';
+
+
+export default function Login () {
 
 /*
-function Login () {
-
-
 
 /*   
 import { useRef } from "react";
@@ -57,20 +53,20 @@ function Login() {
       <Link to="/signUp" className="signIn--button">
         Créer un compte
   </Link>*/
-   /* </section>
-  );
+/* </section>
+);
 } 
 export default Login
-*/
+
 
 
 export default function Login() {
   const navigate = useNavigate();
 
   const inputLogIn = useRef([])
-    const addInputLogIn = (el) => {
-        inputLogIn.current.push(el)
-    }
+  const addInputLogIn = (el) => {
+    inputLogIn.current.push(el)
+  }
 
   let [token, setToken] = React.useContext(TokenContext);
   let [userId, setUserId] = React.useContext(IdContext);
@@ -79,7 +75,7 @@ export default function Login() {
   setToken(undefined);
   setUserId('');
 
-  const handleForm = (event, props) => {
+  const handleForm = (event) => {
     event.preventDefault();
     const email = inputLogIn.current[0];
     const password = inputLogIn.current[1];
@@ -87,35 +83,40 @@ export default function Login() {
     const requestOptions = {
       method: 'POST',
       headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
       },
       body: JSON.stringify({
-          email: email.value,
-          password: password.value,
+        email: email.value,
+        password: password.value,
       }),
-  }
-  fetch(
+    }
+    fetch(
       'http://localhost:3000/auth/login',
       requestOptions
-  )
-      .then((resp) => res.json())
+    )
+      .then((res) => res.json())
       .then((data) => {
-          setToken(data.token);
-          setUserId(data.userId);
-          setName(data.name);
-          navigate('/homepage')})
-          .catch(function (error) {
-              navigate('/')
-          })
+        setToken(data.token);
+        setUserId(data.userId);
+        setName(data.name);
+        navigate('/homepage')
+      })
+      .catch(function (error) {
+        navigate('/')
+      })
+
+*/
+
+    return (
+      <>
+        <LogOrSign />
+      </>
+
+    )
+
   }
-
-
-return (
-
-<>
-
-<h3>Vous avez déjà enregistré votre profil ? <br />Connectez-vous</h3>
+/* <h3>Vous avez déjà enregistré votre profil ? <br />Connectez-vous</h3>
         
 <form className="signIn__form" onSubmit={handleForm}>
         <input type="email" name="emailLogIn" placeholder="Email" ref={addInputLogIn}/>
@@ -123,8 +124,4 @@ return (
         <input type="submit" className="signIn--button" value=" Se connecter"/>
       </form>
      
-</>
-
-);
-
-}
+</> */
