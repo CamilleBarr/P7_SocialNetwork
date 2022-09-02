@@ -5,8 +5,8 @@ import { useRef, useState, useContext, } from "react";
 import { IdContext } from '../App'
 import { TokenContext } from '../App'
 import { NameContext } from '../App'
-//import MessageList from '../components/messageList';
-import Message from '../components/message';
+import ListOfPosts from '../components/displayPosts';
+import CreatePost from '../components/createPost';
 
 export default function HomePage() {
 
@@ -18,14 +18,14 @@ export default function HomePage() {
             <div>
                 <section>
                     <h1>Exprimez-vous !</h1>
-                    <Message/>
+                    <CreatePost/>
                 </section>
                 <section>
                     
                 </section>
                 <section>
                     <h1>Lisez les messages déjà postés :</h1>
-                    {/* <MessageList/> */}
+                    <ListOfPosts/>   
                 </section>
             </div>
             
