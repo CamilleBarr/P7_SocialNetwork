@@ -8,7 +8,7 @@ function DisplayPosts () {
     const [posts, setPosts] = useState([]);
    
     useEffect(()=> {
-        fetch("http://localhost:3000/homepage", {
+        fetch("http://localhost:3001/homepage", {
             method : "GET",
             headers : {'authorization:' : `Bearer $(token)`,'Access-Control-Allow-Origin': '*','content-type': 'application/json'}
             ,body : JSON.stringify(posts)})

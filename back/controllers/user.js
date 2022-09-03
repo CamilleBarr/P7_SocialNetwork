@@ -11,26 +11,33 @@ exports.signup = async (req, res, next) => {
 
     console.log("email signing up : ", req.body.email);
     console.log("pwd in signing up: ", req.body.password);
+    if(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(req.body.email)){
+        if (/^(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*$/g.test(req.body.password)) {
 
-    bcrypt.hash(req.body.password, 10)
-        .then(hash => {
-            const user = new User({
-                email: req.body.email,
-                password: hash
-            });
-            user.save()
-                .then(() => res.status(201).json({
-                    message: "Utilisateur crée et sauvegardé !"
-                }))
-                .catch(error => res.status(400).json({
-                    error
-                }));
-        })
-        .catch(error => res.status(500).json({
-                error
-            }
-        ));
-
+            bcrypt.hash(req.body.password, 10)
+                .then(hash => {
+                    const user = new User({
+                        email: req.body.email,
+                        password: hash
+                    });
+                    user.save()
+                        .then(() => res.status(201).json({
+                            message: "Utilisateur crée et sauvegardé !"
+                        }))
+                        .catch(error => res.status(400).json({
+                            error
+                        }));
+                })
+                .catch(error => res.status(500).json({
+                        error
+                    }
+                ));
+        }else {
+            return res.status(401).json({ message: "Votre mot de passe doit contenir au minimum 8 caractères, un chiffre, une minuscule, une majusle, un caratère spécial" })
+        }     
+    }else {
+        return res.status(401).json({ message: "Ceci n'est pas un email valide" })
+    }
 };
 
 //---------- connexion à la plateforme avec vérification compte existant et verification password

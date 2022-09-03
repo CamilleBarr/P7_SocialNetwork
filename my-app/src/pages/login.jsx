@@ -22,7 +22,7 @@ function Login() {
       email: savedEmail,
       password: savedPassword,
     };
-    const urlSignIn = "http://localhost:3001/api/auth/login";
+    const urlSignIn = "http://localhost:3001/login";
     fetch(urlSignIn, {
       method: "POST",
       headers: {
@@ -92,7 +92,7 @@ export default function Login() {
       }),
     }
     fetch(
-      'http://localhost:3000/auth/login',
+      'http://localhost:3001/login',
       requestOptions
     )
       .then((res) => res.json())

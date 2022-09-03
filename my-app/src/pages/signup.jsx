@@ -41,7 +41,7 @@ setUserId('');
 //     }),
 // }
 // fetch(
-//     'http://localhost:3000/auth/signup',
+//     'http://localhost:3001/signup',
 //     requestOptions
 // )
 //     .then((res) => res.json())
@@ -66,7 +66,7 @@ setUserId('');
 function SignupClick(e) {
   if(email.match(/^[a-zA-Z\0-9\é\ê\è\-]+[@]+[a-zA-Z\0-9\é\ê\è\-]+[.]+[a-zA-Z]+$/)){
       e.preventDefault();
-      fetch("http://localhost:3000/signup", {
+      fetch("http://localhost:3001/signup", {
           method: "POST",
           headers: { 
           'Accept': 'application/json', 
@@ -108,8 +108,7 @@ function SignupClick(e) {
   return (
 <>
 {
-                hasAccount === false
-                ?<div>
+                <div>
                     <h2>Veuillez vous inscrire</h2>
                     <form method='post'>
                         <label type="email" htmlFor='mail'>Email</label>
@@ -119,7 +118,6 @@ function SignupClick(e) {
                         <input type='submit' value='Connexion' onClick={SignupClick}/>
                     </form>
                 </div>
-                :<div><Login /></div>
             }
 </>
   )

@@ -8,6 +8,16 @@ function CreatePost() {
     let [message, setMessage] = useState("");
     let [title, setTitle] = useState("");
 
+    const onChangeName = (e) => {
+      setFileImg({ name: e.target.value });
+    };
+    const onChangeEmail = (e) => {
+      setMessage({ email: e.target.value });
+    };
+    const onChangePassport = (e) => {
+      setTitle({ passport: e.target.value });
+    };
+
     const handleSubmit = (event) => {
         alert('Votre message est posté en ligne : ' + title + message + fileImg);
         event.preventDefault();
@@ -24,7 +34,7 @@ function CreatePost() {
             formData.append('message', message);
             formData.append('userId', userId);
         }
-        fetch("http://localhost:3000/post", {
+        fetch("http://localhost:3001/createPost", {
             method: "POST",
               headers: { 
               'Accept': 'application/json',

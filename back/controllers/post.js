@@ -5,19 +5,19 @@ const User = require('../models/User');
 const dotenv = require("dotenv").config();
 
 exports.createPost = (req, res, next) => {
-    const postObject = JSON.parse(req.body.post);
-    delete postObject._id;
+    const postObject = req.body.post;
     //delete postObject._userId;
-    const newPost = new Post({
-        ...postObject,
-        imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
+    const post = new Post({
+        userId: req.auth.userId,
+      post: req.body.message,
+        imageUrl: null,
+        //`${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
         likes: 0,
-        dislikes: 0,
         usersLiked: [" "],
-        usersDisliked: [" "],
+        date: Date.now()
     });
 
-    newPost.save()
+    post.save()
         .then(() => {
             res.status(201).json({
                 message: "Message enregistré !"
@@ -29,11 +29,12 @@ exports.createPost = (req, res, next) => {
 };
 
 exports.updatePost = (req, res, next) => {
+    if(req.auth.userId === Post.userId || req.auth.userId === process.env.REACT_APP_ADMIN_USERID){
     const postObject = req.file ? {
-        ...JSON.parse(req.body.post),
+        ...(req.body.message),
         imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
     } : {
-        ...req.body
+        ...req.body.message
     };
     Post.updateOne({
             _id: req.params.id
@@ -47,13 +48,13 @@ exports.updatePost = (req, res, next) => {
         .catch(error => res.status(402).json({
             error
         }));
-};
+}};
 
 
 
 exports.getAllPosts = (req, res, next) => {
     Post.find()
-        .then(Post => res.status(200).json(Post))
+        .then((posts) => {posts.sort((a, b) => b.date - a.date); res.status(200).json(posts)})
         .catch(error => res.status(400).json({
             error
         }));
@@ -61,7 +62,7 @@ exports.getAllPosts = (req, res, next) => {
 
 exports.deletePost = (req, res, next) => {
     const postObject = req.file ? {
-        ...JSON.parse(req.body.post),
+        ...req.body.post,
         imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
     } : {
         ...req.body

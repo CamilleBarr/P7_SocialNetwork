@@ -25,7 +25,7 @@ const [lSGet, setLSGet] = useState(JSON.parse(localStorage.getItem("LS")) || fal
 
     function ConnexionClick(e) {
         e.preventDefault();
-        fetch("http://localhost:3000/login", {
+        fetch("http://localhost:3001/user/login", {
             method: "POST",
             headers: { 
             'Accept': 'application/json', 
@@ -57,7 +57,7 @@ const [lSGet, setLSGet] = useState(JSON.parse(localStorage.getItem("LS")) || fal
     function SignupClick(e) {
         if(email.match(/^[a-zA-Z\0-9\é\ê\è\-]+[@]+[a-zA-Z\0-9\é\ê\è\-]+[.]+[a-zA-Z]+$/)){
             e.preventDefault();
-            fetch("http://localhost:3000/signup", {
+            fetch("http://localhost:3001/signup", {
                 method: "POST",
                 headers: { 
                 'Accept': 'application/json', 
