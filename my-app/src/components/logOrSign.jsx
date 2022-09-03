@@ -3,7 +3,14 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
+
 export default function LogOrSign() {
+    
+const [token, setToken] = useState({})
+const [userId, setUserId] = useState({})
+const [name, setName] = useState({})
+const [lSGet, setLSGet] = useState(JSON.parse(localStorage.getItem("LS")) || false);
+    
     let [email, setEmail] = useState('');
     let [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -22,11 +29,12 @@ export default function LogOrSign() {
             method: "POST",
             headers: { 
             'Accept': 'application/json', 
-            'Content-Type': 'application/json' 
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*' 
             },
             body: JSON.stringify({email, password}),
             })
-            .then(function(res){
+            .then((res)=>{
                 if(res.ok){
                 console.log("Ok");
                 return res.json();
@@ -35,12 +43,12 @@ export default function LogOrSign() {
                     alert('E-mail ou mot de passe invalide');
                 }
             })
-            .then(function(reponse){
-                localStorage.setItem('token', reponse.token);
-                localStorage.setItem('userId', reponse.userId);
+            .then((res)=>{
+                //localStorage.setItem('email', res.email);
+                //localStorage.setItem('userId', res.userId);
                 navigate('/homePage');
             })
-            .catch(function(err){
+            .catch((err)=>{
                 // afficher une erreur dans la console 
                 console.log(err)
         })
@@ -57,7 +65,7 @@ export default function LogOrSign() {
                 },
                 body: JSON.stringify({email, password}),
                 })
-                .then(function(res){
+                .then((res)=>{
                     if(res.ok){
                         console.log("Ok");
                         return res.json();
@@ -66,7 +74,7 @@ export default function LogOrSign() {
                         return res.status;
                     }
                 })
-                .then(function(res){
+                .then((res)=>{
                     if(res === 400){
                         alert('Utilisateur existant');
                     }
@@ -76,7 +84,7 @@ export default function LogOrSign() {
                         navigate('/homePage');
                     }
                 })
-                .catch(function(err){
+                .catch((err)=>{
                     // afficher une erreur dans la console 
                     console.log(err)
             })
@@ -94,9 +102,9 @@ export default function LogOrSign() {
                 ?<div>
                     <h2>Veuillez vous identifier</h2>
                     <form method='post'>
-                        <label for='mail'>Email</label>
+                        <label htmlFor='mail'>Email</label>
                         <input type='text' id='mail' name='mail' value={email} required onChange={(e) => setEmail(e.target.value)}/>
-                        <label for='password'>Mot de passe</label>
+                        <label htmlFor='password'>Mot de passe</label>
                         <input type='password' id='password' name='password' value={password} required onChange={(e) => setPassword(e.target.value)}/>
                         <input type='submit' value='Connexion' onClick={ConnexionClick}/>
                     </form>
@@ -104,9 +112,9 @@ export default function LogOrSign() {
                 :<div>
                     <h2>Veuillez vous inscrire</h2>
                     <form method='post'>
-                        <label for='mail'>Email</label>
+                        <label htmlFor='mail'>Email</label>
                         <input type='text' className='mail' name='mail' required onChange={(e) => setEmail(e.target.value)}/>
-                        <label for='password'>Mot de passe</label>
+                        <label htmlFor='password'>Mot de passe</label>
                         <input type='password' name='password' required onChange={(e) => setPassword(e.target.value)}/>
                         <input type='submit' value='Connexion' onClick={SignupClick}/>
                     </form>

@@ -70,11 +70,11 @@ function SignupClick(e) {
           method: "POST",
           headers: { 
           'Accept': 'application/json', 
-          'Content-Type': 'application/json' 
+          'Content-type': 'application/json' 
           },
           body: JSON.stringify({email, password}),
           })
-          .then(function(res){
+          .then((res)=>{
               if(res.ok){
                   console.log("Ok");
                   return res.json();
@@ -83,7 +83,7 @@ function SignupClick(e) {
                   return res.status;
               }
           })
-          .then(function(res){
+          .then((res)=>{
               if(res === 400){
                   alert('Utilisateur existant');
               }
@@ -112,9 +112,9 @@ function SignupClick(e) {
                 ?<div>
                     <h2>Veuillez vous inscrire</h2>
                     <form method='post'>
-                        <label type="email" for='mail'>Email</label>
+                        <label type="email" htmlFor='mail'>Email</label>
                         <input type='text' className='mail' name='mail' required onChange={(e) => setEmail(e.target.value)}/>
-                        <label for='password'>Mot de passe </label>
+                        <label htmlFor='password'>Mot de passe </label>
                         <input type='password' name='password' required onChange={(e) => setPassword(e.target.value)}/>
                         <input type='submit' value='Connexion' onClick={SignupClick}/>
                     </form>

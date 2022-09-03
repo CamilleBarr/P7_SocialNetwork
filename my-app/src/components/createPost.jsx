@@ -9,7 +9,7 @@ function CreatePost() {
     let [title, setTitle] = useState("");
 
     const handleSubmit = (event) => {
-        alert('Votre message est posté en ligne : ' + {title} + {message} + {fileImg});
+        alert('Votre message est posté en ligne : ' + title + message + fileImg);
         event.preventDefault();
       
         let formData = new FormData();
@@ -38,7 +38,7 @@ function CreatePost() {
                     return res.json();
                 }
             })
-            .catch(function(err){
+            .catch((err)=>{
                 // afficher une erreur dans la console 
                 console.log(err)
         })
@@ -47,14 +47,14 @@ function CreatePost() {
         <>
             <section >
                 <form onSubmit={handleSubmit}>
-                <label for="title" onChange={(e) => setTitle(e.target.value)}>Titre</label>
+                <label htmlFor="title" onChange={(e) => setTitle(e.target.value)}>Titre</label>
                     <input
                         name="message"
                         type="text"
                         placeholder="Titre"
                         onChange={(e) => setMessage(e.target.value)}
                     />
-                    <label for="message" onChange={(e) => setMessage(e.target.value)}>Votre message</label>
+                    <label htmlFor="message" onChange={(e) => setMessage(e.target.value)}>Votre message</label>
                     <input
                         name="message"
                         type="textarea"

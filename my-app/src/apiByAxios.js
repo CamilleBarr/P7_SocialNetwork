@@ -1,15 +1,15 @@
 import axios from "axios";
 
-const BASE_URL ="http://localhost:3000/";
+const baseURL ="http://localhost:3000/";
 
 export default axios.create({
-    baseURL: BASE_URL,
+    baseURL: baseURL,
     headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
     withCredentials: true
 });
 
 export const axiosPrivate = axios.create({
-    baseURL: BASE_URL,
+    baseURL: baseURL,
     headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
     withCredentials: true
 });

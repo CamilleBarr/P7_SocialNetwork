@@ -32,11 +32,14 @@ const [connection, setConnection] = useState(false);
                     <Cart cart={cart} updateCart={updateCart} />
                     <ShoppingList cart={cart} updateCart={updateCart} />
                 </div> */}
-            
+                <Route path="/" element={<Navigate replace to="/login"/>} />
+                                    
                 <Route path="/login" element={<Login/>} />
                 <Route path="/signup" element={<SignUp/>} />
-                <Route path="/homePage" element={<HomePage/>} />      
-              </Routes>
+                <Route path="/homePage" element={<HomePage/>} /> 
+                {/* <Route path='/post' element={<Post />} />
+                <Route path='/modify' element={<Modify/>}/> */}
+            </Routes>     
             <Footer />
         </MixDataProvider>
     </BrowserRouter>
