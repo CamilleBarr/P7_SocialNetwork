@@ -4,14 +4,18 @@ const dotenv = require("dotenv").config();
 var schemaPassword = new passwordValidator();
 
 // Add properties to it
-schemaPassword
-    .is().min(8) // Minimum length 8
-    .is().max(25) // Maximum length 25
-    .has().uppercase(1) // Must have uppercase letters
-    .has().lowercase(1) // Must have lowercase letters
-    .has().digits(2) // Must have at least 2 digits
-    .has().not().spaces() // Should not have spaces
-    .is().not().oneOf(['Passw0rd', 'Password123']); // Blacklist these values
+// schemaPassword
+//     .is().min(8) // Minimum length 8
+//     .is().max(25) // Maximum length 25
+//     .has().uppercase(1) // Must have uppercase letters
+//     .has().lowercase(1) // Must have lowercase letters
+//     .has().digits(2) // Must have at least 2 digits
+//     .has().not().spaces() // Should not have spaces
+//     .is().not().oneOf(['Passw0rd', 'Password123']); // Blacklist these values
+
+    
+    schemaPassword
+    .is().min(1) // Minimum length 8
 
 // EXPORTS
 // VERIFICATION DU MOT DE PASSE : Middleware de vérification de la qualité du mot de passe par rapport au schéma

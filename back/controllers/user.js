@@ -11,11 +11,14 @@ exports.signup = async (req, res, next) => {
 
     console.log("email signing up : ", req.body.email);
     console.log("pwd in signing up: ", req.body.password);
-    if(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(req.body.email)){
-        if (/^(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*$/g.test(req.body.password)) {
-
+   // if(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(req.body.email)){
+   //     if (/^(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*$/g.test(req.body.password)) {
+if(true) { 
+    if(true) {
+        console.log('jesuis ici')
             bcrypt.hash(req.body.password, 10)
                 .then(hash => {
+                    console.log('je suis ici')
                     const user = new User({
                         email: req.body.email,
                         password: hash
@@ -43,6 +46,7 @@ exports.signup = async (req, res, next) => {
 //---------- connexion à la plateforme avec vérification compte existant et verification password
 // avec gestion d'erreur d'exécution de la requete au serveur, err verif mot de passe, err user not exist
 exports.login = async (req, res, next) => {
+    console.log("email loging up : ", req.body);
 
     console.log("email loging up : ", req.body.email);
     console.log("pwd in loging up: ", req.body.password);

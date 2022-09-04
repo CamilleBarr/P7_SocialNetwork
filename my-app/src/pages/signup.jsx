@@ -66,33 +66,26 @@ setUserId('');
 function SignupClick(e) {
   if(email.match(/^[a-zA-Z\0-9\é\ê\è\-]+[@]+[a-zA-Z\0-9\é\ê\è\-]+[.]+[a-zA-Z]+$/)){
       e.preventDefault();
-      fetch("http://localhost:3001/signup", {
+      fetch("http://localhost:3000/signup", {
           method: "POST",
           headers: { 
-          'Accept': 'application/json', 
           'Content-type': 'application/json' 
           },
           body: JSON.stringify({email, password}),
           })
           .then((res)=>{
-              if(res.ok){
-                  console.log("Ok");
-                  return res.json();
-              }
-              else{
-                  return res.status;
-              }
-          })
-          .then((res)=>{
-              if(res === 400){
-                  alert('Utilisateur existant');
-              }
-              else{
-                  localStorage.setItem('userId', res.userId);
-                  localStorage.setItem('token', res.token);
-                  navigate('/homePage');
-              }
-          })
+            console.log('res', res)
+            if(res.status === 201) {
+                localStorage.setItem('userId', res.userId);
+                localStorage.setItem('token', res.token);
+            
+                navigate('/login');
+            }  else if(res.status === 400){
+                alert('Utilisateur existant');
+            } else {
+                alert('other error')
+            }
+        })
           .catch(function(err){
               // afficher une erreur dans la console 
               console.log(err)

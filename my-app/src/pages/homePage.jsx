@@ -24,7 +24,6 @@ export default function HomePage() {
                     
                 </section>
                 <section>
-                    <h1>Lisez les messages déjà postés :</h1>
                     <DisplayPosts/>
                 </section>
             </div>

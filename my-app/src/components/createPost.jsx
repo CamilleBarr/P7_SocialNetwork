@@ -1,5 +1,6 @@
 import React from 'react';
 import {useState} from 'react';
+import {ROOT_PATH_URL} from './server.config';
 //import '../App.css';
 
 function CreatePost() {
@@ -7,17 +8,7 @@ function CreatePost() {
     let [fileImg, setFileImg] = useState(null);
     let [message, setMessage] = useState("");
     let [title, setTitle] = useState("");
-
-    const onChangeName = (e) => {
-      setFileImg({ name: e.target.value });
-    };
-    const onChangeEmail = (e) => {
-      setMessage({ email: e.target.value });
-    };
-    const onChangePassport = (e) => {
-      setTitle({ passport: e.target.value });
-    };
-
+    
     const handleSubmit = (event) => {
         alert('Votre message est posté en ligne : ' + title + message + fileImg);
         event.preventDefault();
@@ -25,19 +16,17 @@ function CreatePost() {
         let formData = new FormData();
         let token = localStorage.getItem('token');
         let userId = localStorage.getItem('userId');
+        formData.append('message', message);
+        formData.append('userId', userId);
+        formData.append('title', title);
         if(fileImg){
             formData.append('image', fileImg[0]);
-            formData.append('message', message);
-            formData.append('userId', userId);
+           
         }
-        else{
-            formData.append('message', message);
-            formData.append('userId', userId);
-        }
-        fetch("http://localhost:3001/createPost", {
+
+        fetch(`${ROOT_PATH_URL}/post`, {
             method: "POST",
               headers: { 
-              'Accept': 'application/json',
               'Authorization': `Bearer ${token}`
             },
             body: formData,
@@ -62,7 +51,7 @@ function CreatePost() {
                         name="message"
                         type="text"
                         placeholder="Titre"
-                        onChange={(e) => setMessage(e.target.value)}
+                        onChange={(e) => setTitle(e.target.value)}
                     />
                     <label htmlFor="message" onChange={(e) => setMessage(e.target.value)}>Votre message</label>
                     <input

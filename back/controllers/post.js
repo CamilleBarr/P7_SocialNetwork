@@ -5,11 +5,12 @@ const User = require('../models/User');
 const dotenv = require("dotenv").config();
 
 exports.createPost = (req, res, next) => {
-    const postObject = req.body.post;
+    console.log('coucouc',  req.body)
     //delete postObject._userId;
     const post = new Post({
-        userId: req.auth.userId,
-      post: req.body.message,
+        title: req.body.title,
+        userId: req.body.userId,
+        message: req.body.message,
         imageUrl: null,
         //`${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
         likes: 0,
@@ -23,38 +24,46 @@ exports.createPost = (req, res, next) => {
                 message: "Message enregistré !"
             })
         })
-        .catch(error => res.status(400).json({
-            error
-        }));
+        .catch(error => {
+        console.log('error', error)
+            res.status(400).json({
+                error
+            })
+        });
 };
 
 exports.updatePost = (req, res, next) => {
-    if(req.auth.userId === Post.userId || req.auth.userId === process.env.REACT_APP_ADMIN_USERID){
-    const postObject = req.file ? {
-        ...(req.body.message),
-        imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
-    } : {
-        ...req.body.message
-    };
-    Post.updateOne({
-            _id: req.params.id
-        }, {
-            ...postObject,
-            _id: req.params.id
-        })
-        .then(() => res.status(200).json({
-            message: 'Message modifié !'
-        }))
-        .catch(error => res.status(402).json({
-            error
-        }));
-}};
+    if (req.auth.userId === Post.userId || req.auth.userId === process.env.REACT_APP_ADMIN_USERID) {
+        const postObject = req.file ? {
+            ...(req.body.message),
+            imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
+        } : {
+            ...req.body.message
+        };
+        Post.updateOne({
+                _id: req.params.id
+            }, {
+                ...postObject,
+                _id: req.params.id
+            })
+            .then(() => res.status(200).json({
+                message: 'Message modifié !'
+            }))
+            .catch(error => res.status(402).json({
+                error
+            }));
+    }
+};
 
 
 
 exports.getAllPosts = (req, res, next) => {
+    
     Post.find()
-        .then((posts) => {posts.sort((a, b) => b.date - a.date); res.status(200).json(posts)})
+        .then((posts) => {
+            posts.sort((a, b) => b.date - a.date);
+            res.status(200).json(posts)
+        })
         .catch(error => res.status(400).json({
             error
         }));
@@ -95,19 +104,19 @@ exports.checkPost = (req, res, next) => {
                         !post.usersLiked.includes(userId) && like === 1
                     ) {
                         Post.updateOne({
-                                    _id: req.params.id
+                                _id: req.params.id
+                            }, {
+                                $inc: {
+                                    likes: 1
                                 },
-                                {
-                                    $inc: {likes: 1
-                                    },
-                                    $push: {usersLiked: userId
-                                    }
+                                $push: {
+                                    usersLiked: userId
                                 }
-                            )
+                            })
                             .then(function () {
                                 res.status(201).json({
-                                        message: "Ce message est enregistré dans vos favoris"
-                                    });
+                                    message: "Ce message est enregistré dans vos favoris"
+                                });
                             })
                             .catch(function (error) {
                                 res.status(400).json({
@@ -120,19 +129,19 @@ exports.checkPost = (req, res, next) => {
                 case 0:
                     if (post.usersLiked.includes(userId)) {
                         Post.updateOne({
-                                    _id: req.params.id
+                                _id: req.params.id
+                            }, {
+                                $inc: {
+                                    likes: -1
                                 },
-                                {
-                                    $inc: {likes: -1
-                                    },
-                                    $pull: {usersLiked: userId
-                                    },
-                                }
-                            )
+                                $pull: {
+                                    usersLiked: userId
+                                },
+                            })
                             .then(function () {
                                 res.status(201).json({
-                                        message: "Ce message n'est plus enregistré dans vos favoris"
-                                    });
+                                    message: "Ce message n'est plus enregistré dans vos favoris"
+                                });
                             })
                             .catch(function (error) {
                                 res.status(400).json({
@@ -142,19 +151,19 @@ exports.checkPost = (req, res, next) => {
                     }
                     if (post.usersDisliked.includes(userId)) {
                         Post.updateOne({
-                                    _id: req.params.id
+                                _id: req.params.id
+                            }, {
+                                $inc: {
+                                    dislikes: -1
                                 },
-                                {
-                                    $inc: {dislikes: -1
-                                    },
-                                    $pull: {usersDisliked: userId
-                                    },
-                                }
-                            )
+                                $pull: {
+                                    usersDisliked: userId
+                                },
+                            })
                             .then(function () {
                                 res.status(201).json({
-                                        message: "Ce message n'est plus enregistré dans vos messages détestés"
-                                    });
+                                    message: "Ce message n'est plus enregistré dans vos messages détestés"
+                                });
                             })
                             .catch(function (error) {
                                 res.status(400).json({

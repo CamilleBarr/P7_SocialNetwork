@@ -1,8 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-
+import {ROOT_PATH_URL} from './server.config';
 
 export default function LogOrSign() {
     
@@ -25,28 +24,33 @@ const [lSGet, setLSGet] = useState(JSON.parse(localStorage.getItem("LS")) || fal
 
     function ConnexionClick(e) {
         e.preventDefault();
-        fetch("http://localhost:3001/user/login", {
+        fetch(`${ROOT_PATH_URL}/login`, {
             method: "POST",
             headers: { 
-            'Accept': 'application/json', 
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*' 
             },
             body: JSON.stringify({email, password}),
             })
             .then((res)=>{
-                if(res.ok){
-                console.log("Ok");
+                if(res.status===200) {
+                    console.log("Ok");
                 return res.json();
-                }
-                else{
+                } else if(res.status===400) {
                     alert('E-mail ou mot de passe invalide');
                 }
+                return Promise.reject();                
             })
             .then((res)=>{
-                //localStorage.setItem('email', res.email);
-                //localStorage.setItem('userId', res.userId);
-                navigate('/homePage');
+                console.log('res',res)
+                if(res) {
+                    localStorage.setItem('email', res.email);
+                    localStorage.setItem('userId', res.userId);
+                    localStorage.setItem('token', res.token);
+
+                    
+                    navigate('/homePage');
+                }
+
             })
             .catch((err)=>{
                 // afficher une erreur dans la console 
@@ -57,10 +61,9 @@ const [lSGet, setLSGet] = useState(JSON.parse(localStorage.getItem("LS")) || fal
     function SignupClick(e) {
         if(email.match(/^[a-zA-Z\0-9\é\ê\è\-]+[@]+[a-zA-Z\0-9\é\ê\è\-]+[.]+[a-zA-Z]+$/)){
             e.preventDefault();
-            fetch("http://localhost:3001/signup", {
+            fetch(`${ROOT_PATH_URL}/signup`, {
                 method: "POST",
                 headers: { 
-                'Accept': 'application/json', 
                 'Content-Type': 'application/json' 
                 },
                 body: JSON.stringify({email, password}),
@@ -75,13 +78,14 @@ const [lSGet, setLSGet] = useState(JSON.parse(localStorage.getItem("LS")) || fal
                     }
                 })
                 .then((res)=>{
-                    if(res === 400){
-                        alert('Utilisateur existant');
-                    }
-                    else{
+                    if(res=== 200) {
                         localStorage.setItem('userId', res.userId);
                         localStorage.setItem('token', res.token);
+                    
                         navigate('/homePage');
+                    }
+                    if(res === 400){
+                        alert('Utilisateur existant');
                     }
                 })
                 .catch((err)=>{

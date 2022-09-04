@@ -5,7 +5,7 @@ const multer = require('../middleware/multer-config');
 const postControllers = require('../controllers/post');
 
 
-router.get('/homePage', auth, postControllers.getAllPosts); 
+router.get('/homepage', auth, postControllers.getAllPosts); 
 
 // //---------- réponse retournée par le serveur en MODIFICATION / MAJ /PUT via le fichier controllers
 router.post('/post', auth, multer, postControllers.createPost);

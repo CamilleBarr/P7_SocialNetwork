@@ -13,7 +13,7 @@ module.exports = (req, res, next) => {
         const token = req.headers.authorization.split(" ")[1];
         const decodedToken = jwt.verify(token, `${process.env.TOKEN_SECRET}`);
         const userId = decodedToken.userId;
-        console.log("req.body.user, userId 1", req.body.email, userId);
+        console.log("req.body.user, userId 1", userId);
 
         if (req.body.userId && req.body.userId !== userId) {
             console.log("req.body.user, userId invalid", req.body.userId, userId);
@@ -22,7 +22,7 @@ module.exports = (req, res, next) => {
             next();
         }
     } catch (error) {
-        console.log("catch");
+        console.log("catch", error);
         res.status(403).json({
             message :"Unauthorized request"
         });

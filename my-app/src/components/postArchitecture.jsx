@@ -1,14 +1,17 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import {ROOT_PATH_URL} from './server.config';
 
 function PostArchitecture(props, data) {
+  console.log('.............')
+  console.log('props........', data, props)
   let [likes , setLikes] = useState(data.likes)
   const navigate = useNavigate();
   let token = localStorage.getItem('token');
   let userId = localStorage.getItem('userId');
   let usersLiked = data.usersLiked;
   const presentLike = (element) => element === userId;
-  let findLike = usersLiked.some(presentLike);
+  let findLike = usersLiked?.some(presentLike);
   let [isLiked, setIsLiked] = useState(findLike)
   let like = undefined
   //let [description, setDescription] = useState(data.description)
@@ -16,10 +19,10 @@ function PostArchitecture(props, data) {
     return date.toLocaleDateString();
   }
   
-  function Avatar(props) {
+  function ShowImage(props) {
     return (
       <img
-        className="Avatar"
+        className="image"
         src={props.user.avatarUrl}
         alt={props.user.name}
       />
@@ -29,7 +32,7 @@ function PostArchitecture(props, data) {
   function UserInfo(props) {
     return (
       <div className="UserInfo">
-        <Avatar user={props.user} />
+        <ShowImage user={props.user} />
         <div className="UserInfo-name">{props.user.name}</div>
       </div>
     );
@@ -37,7 +40,7 @@ function PostArchitecture(props, data) {
   
   function AddLike(){
     like = 1
-    fetch("http://localhost:3000/like", {
+    fetch(`${ROOT_PATH_URL/like}`, {
         method: "POST",
           headers: { 
           'Accept': 'application/json', 
@@ -62,7 +65,7 @@ function PostArchitecture(props, data) {
 
 function CancelLike(){
   like = 0
-  fetch("http://localhost:3000/like", {
+  fetch(`${ROOT_PATH_URL}/like`, {
       method: "POST",
         headers: { 
         'Accept': 'application/json', 
@@ -85,8 +88,8 @@ function CancelLike(){
   })
 }
 function DeletePost(){
-  fetch("http://localhost:3000/delete", {
-      method: "POST",
+  fetch(`${ROOT_PATH_URL}/delete`, {
+      method: "DELETE",
         headers: { 
         'Accept': 'application/json', 
         'Content-Type': 'application/json',
@@ -119,8 +122,8 @@ function Comment(props) {
       <div>
           {
             isLiked === false
-              ? <button onClick={AddLike}><i class="fa-regular fa-thumbs-up"></i></button>
-              : <button onClick={CancelLike}><i class="fa-solid fa-thumbs-up"></i></button>
+              ? <button onClick={AddLike}><i className="fa-regular fa-thumbs-up"></i></button>
+              : <button onClick={CancelLike}><i className="fa-solid fa-thumbs-up"></i></button>
           }
       </div>
         {
