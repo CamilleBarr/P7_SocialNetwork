@@ -1,8 +1,9 @@
 import React from "react";
 import { useRef, useState, } from "react";
 import { useNavigate  } from "react-router-dom";
-import { TokenContext } from '../App'
-import { IdContext } from '../App'
+import { TokenContext } from '../App';
+import { IdContext } from '../App';
+import {ROOT_PATH_URL} from '../components/server.config';
 
 import Login from './login';
 export default function SignUp() {
@@ -63,40 +64,49 @@ setUserId('');
   }
 
 
-function SignupClick(e) {
-  if(email.match(/^[a-zA-Z\0-9\é\ê\è\-]+[@]+[a-zA-Z\0-9\é\ê\è\-]+[.]+[a-zA-Z]+$/)){
-      e.preventDefault();
-      fetch("http://localhost:3000/signup", {
-          method: "POST",
-          headers: { 
-          'Content-type': 'application/json' 
-          },
-          body: JSON.stringify({email, password}),
-          })
-          .then((res)=>{
-            console.log('res', res)
-            if(res.status === 201) {
-                localStorage.setItem('userId', res.userId);
-                localStorage.setItem('token', res.token);
-            
-                navigate('/login');
-            }  else if(res.status === 400){
-                alert('Utilisateur existant');
-            } else {
-                alert('other error')
-            }
+  function SignupClick(e) {
+    if(email.match(/^[a-zA-Z\0-9\é\ê\è\-]+[@]+[a-zA-Z\0-9\é\ê\è\-]+[.]+[a-zA-Z]+$/)){
+        e.preventDefault();
+        fetch(`${ROOT_PATH_URL}/signup`, {
+            method: "POST",
+            headers: { 
+            'Content-Type': 'application/json' 
+            },
+            body: JSON.stringify({email, password}),
+            })
+            .then((res)=>{
+                if(res.ok){
+                    console.log("Ok");
+                    navigate('/login');
+                    return res.json();
+                    
+                }
+                else{
+                    return res.status;
+                }
+            })
+            .then((res)=>{
+                if(res=== 200) {
+                    localStorage.setItem('userId', res.userId);
+                    localStorage.setItem('token', res.token);
+                
+                    navigate('/login');
+                }
+                if(res === 400){
+                    alert('Utilisateur existant.');
+                    navigate('/login');
+                }
+            })
+            .catch((err)=>{
+                // afficher une erreur dans la console 
+                console.log(err)
         })
-          .catch(function(err){
-              // afficher une erreur dans la console 
-              console.log(err)
-      })
-  }
-  else{
-      e.preventDefault();
-      alert('Rentrez une adresse mail valide')
-  }
+    }
+    else{
+        e.preventDefault();
+        alert('Rentrez une adresse mail valide')
+    }
 }
-
 
   return (
 <>

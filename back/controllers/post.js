@@ -33,7 +33,7 @@ exports.createPost = (req, res, next) => {
 };
 
 exports.updatePost = (req, res, next) => {
-    if (req.auth.userId === Post.userId || req.auth.userId === process.env.REACT_APP_ADMIN_USERID) {
+    if (req.auth.userId === Post.userId || req.auth.userId === process.env.DB_ADMIN) {
         const postObject = req.file ? {
             ...(req.body.message),
             imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`

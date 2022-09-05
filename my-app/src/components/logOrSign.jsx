@@ -58,7 +58,7 @@ const [lSGet, setLSGet] = useState(JSON.parse(localStorage.getItem("LS")) || fal
         })
     }
 
-    function SignupClick(e) {
+    function DisconnectClick(e) {
         if(email.match(/^[a-zA-Z\0-9\é\ê\è\-]+[@]+[a-zA-Z\0-9\é\ê\è\-]+[.]+[a-zA-Z]+$/)){
             e.preventDefault();
             fetch(`${ROOT_PATH_URL}/signup`, {
@@ -101,10 +101,10 @@ const [lSGet, setLSGet] = useState(JSON.parse(localStorage.getItem("LS")) || fal
 
     return ( 
         <div>
-            {
+            {/* {
                 hasAccount === true
-                ?<div>
-                    <h2>Veuillez vous identifier</h2>
+                ? */}<div>
+                    <h2>Déjà inscrit ? Veuillez vous identifier</h2>
                     <form method='post'>
                         <label htmlFor='mail'>Email</label>
                         <input type='text' id='mail' name='mail' value={email} required onChange={(e) => setEmail(e.target.value)}/>
@@ -113,17 +113,18 @@ const [lSGet, setLSGet] = useState(JSON.parse(localStorage.getItem("LS")) || fal
                         <input type='submit' value='Connexion' onClick={ConnexionClick}/>
                     </form>
                 </div>
-                :<div>
+                {/* : 
+                <div>
                     <h2>Veuillez vous inscrire</h2>
                     <form method='post'>
                         <label htmlFor='mail'>Email</label>
                         <input type='text' className='mail' name='mail' required onChange={(e) => setEmail(e.target.value)}/>
                         <label htmlFor='password'>Mot de passe</label>
                         <input type='password' name='password' required onChange={(e) => setPassword(e.target.value)}/>
-                        <input type='submit' value='Connexion' onClick={SignupClick}/>
+                        <input type='submit' value='Connexion' onClick={DisconnectClick}/>
                     </form>
                 </div>
-            }
+            {/* } */}
         </div>
     )
 }
