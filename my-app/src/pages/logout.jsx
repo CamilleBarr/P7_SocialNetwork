@@ -8,28 +8,21 @@ export default function Logout() {
     const navigate = useNavigate();
 
     function disconnect(e) {
-
         setToken(undefined)
         setUserId('')
         navigate('/')
     }
 
-return (
-    <header className="header">
-        
-        <div className="displayHeaderLeft"></div>
-        <div className="displayButtonLogout">
-
-        {token === undefined && userId === '' ?
-            '' : 
-            <button
-                onClick={disconnect}
-                className="buttonLogout"
-                size="3x"
-            >Se déconnecter</button>
-        }
-
-        </div>
-    </header>
-)
+    return (
+        <header className="header">
+            <div className="displayHeaderLeft"></div>
+            <div className="displayButtonLogout">
+            {token === undefined && userId === '' ? '' : 
+                <button onClick={disconnect}>
+                    Se déconnecter
+                </button>
+            }
+            </div>
+        </header>
+    )
 }

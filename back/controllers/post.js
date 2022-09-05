@@ -2,6 +2,7 @@ const Post = require('../models/post');
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const post = require('../models/post');
 const dotenv = require("dotenv").config();
 
 exports.createPost = (req, res, next) => {
@@ -11,8 +12,7 @@ exports.createPost = (req, res, next) => {
         title: req.body.title,
         userId: req.body.userId,
         message: req.body.message,
-        imageUrl: null,
-        //`${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
+        imageUrl: (req.file?`${req.protocol}://${req.get("host")}/images/${req.file.filename}`:null),
         likes: 0,
         usersLiked: [" "],
         date: Date.now()
@@ -70,14 +70,15 @@ exports.getAllPosts = (req, res, next) => {
 };
 
 exports.deletePost = (req, res, next) => {
-    const postObject = req.file ? {
-        ...req.body.post,
-        imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
-    } : {
-        ...req.body
-    };
-    Post.deleteOne({
-            _id: req.params.id
+    // const postObject = 
+    // req.body.userId == post.userId || req.body.userId == process.env.DB_ADMIN ? {
+    //     ...post,
+    //     imageUrl: (req.file?`${req.protocol}://${req.get("host")}/images/${req.file.filename}`:null)
+    // } : {
+    //     ...req.body
+    // };
+     Post.deleteOne({
+            _id: req.params.id || process.env.DB_ADMIN
         })
         .then(() => {
             res.status(200).json({

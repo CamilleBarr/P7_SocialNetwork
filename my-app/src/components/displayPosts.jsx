@@ -7,7 +7,7 @@ function DisplayPosts (post) {
     let userId = localStorage.getItem('userId');
     
     // const presentLike = (element) => element === userId;
-    // let like = undefined;
+    let like = undefined;
     // let [likes, setLikes] = useState(likes);
     // let usersLiked = [usersLiked];
     // let findLike = usersLiked?.some(presentLike);
@@ -56,14 +56,15 @@ function DisplayPosts (post) {
           fetch(`${ROOT_PATH_URL}/delete` + target, {
               method: "DELETE",
                 headers: { 
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'authorization' : `Bearer ${token}`
               }
               })
               .then((res)=>{
                   return res.json();
               })
               .then(() => {
-                const posts = fetch(
+                const newPostList = fetch(
                     `${ROOT_PATH_URL}/post`, 
                     {method: 'GET',
                     headers: {
@@ -73,7 +74,7 @@ function DisplayPosts (post) {
                     )
                     .then((res) =>  res.json())
                     .then(() => {
-                        let posts = posts.slice().sort(function (a, b) {
+                        let posts = posts.slice().sort(function (b, a) {
                             return new Date(b.createdAt) - new Date(a.createdAt)
                         })
                         setPosts(posts)
@@ -145,7 +146,7 @@ function DisplayPosts (post) {
                             {post.title},
                             {post.message}
                             {post.imageUrl}
-                            {/* {Like()} */}
+                            {like}
                             <div>
                 <button onClick={DeletePost}>Supprimer</button>
                 {/* <button onClick={ModifyPost}>Modifier</button> */}
@@ -177,30 +178,18 @@ function DisplayPosts (post) {
                   }
                   
     return (
-         
-        <div>
-
-<Blog posts={posts} />
-{/*             
-            {posts?.length > 0 ? <h1>{messageText}</h1>  
+      <>
+        <Blog posts={posts} />
+        {/* <div>
+            {posts?.length > 0} 
             
-             { posts?.map((post)=> { post 
-                
-
-            //return <PostArchitecture key={post._id} data={post}/>
-             
-            })}
+            <h1>{messageText}</h1>
             
-            :  <h1>{noMessageText}</h1>
-            
-            }
-
-            */}
-             
-        </div>
-       
+            :  
+            <h1>{noMessageText}</h1>  
+        </div> */}
+      </>
     )
 }
-
 
 export default DisplayPosts;

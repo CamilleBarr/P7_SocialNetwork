@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import {ROOT_PATH_URL} from '../components/server.config';
 
 export default function LogOrSign() {
-    
-const [token, setToken] = useState({})
-const [userId, setUserId] = useState({})
-const [name, setName] = useState({})
-const [lSGet, setLSGet] = useState(JSON.parse(localStorage.getItem("LS")) || false);
+        
+    const [token, setToken] = useState({})
+    const [userId, setUserId] = useState({})
+    const [name, setName] = useState({})
+    const [lSGet, setLSGet] = useState(JSON.parse(localStorage.getItem("LS")) || false);
     
     let [email, setEmail] = useState('');
     let [password, setPassword] = useState('');
@@ -28,6 +28,7 @@ const [lSGet, setLSGet] = useState(JSON.parse(localStorage.getItem("LS")) || fal
             method: "POST",
             headers: { 
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({email, password}),
             })
@@ -46,21 +47,18 @@ const [lSGet, setLSGet] = useState(JSON.parse(localStorage.getItem("LS")) || fal
                     localStorage.setItem('email', res.email);
                     localStorage.setItem('userId', res.userId);
                     localStorage.setItem('token', res.token);
-
-                    
                     navigate('/homePage');
                 }
-
             })
             .catch((err)=>{
-                // afficher une erreur dans la console 
                 console.log(err)
         })
     }
 
     return ( 
         <div>
-           <div>
+            { hasAccount === true &&
+                <div>
                     <h2>Déjà inscrit ? Veuillez vous identifier</h2>
                     <form method='post'>
                         <label htmlFor='mail'>Email</label>
@@ -70,7 +68,7 @@ const [lSGet, setLSGet] = useState(JSON.parse(localStorage.getItem("LS")) || fal
                         <input type='submit' value='Connexion' onClick={ConnexionClick}/>
                     </form>
                 </div>
-                
+            }
         </div>
     )
 }

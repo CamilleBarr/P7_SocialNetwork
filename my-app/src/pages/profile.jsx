@@ -79,16 +79,17 @@ function Blog() {
 
 
 
- return(
-  <><h2>Profile</h2>
-  <p>Vous avez possibilité ici de supprimer ou modifier votre post</p>
-    <nav>
-        <Link to= "/signup">Déconnectez-vous </Link>
-        <Link to="/homePage">Profil </Link>
-    </nav>
-    <div>
-        Blog()
-    </div>
+  return(
+    <> 
+      <h2>Profile</h2>
+      <p>Vous avez possibilité ici de supprimer ou modifier votre post</p>
+      <nav>
+          <Link to= "/signup">Déconnectez-vous </Link>
+          <Link to="/homePage">Profil </Link>
+      </nav>
+      <div>
+          Blog()
+      </div>
     </>
   )
 }
