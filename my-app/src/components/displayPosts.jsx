@@ -48,8 +48,6 @@ function DisplayPosts (post) {
     
         console.log(posts, "posts ?");
 
-        
-        }
         function DeletePost(e){
             e.preventDefault()
             let target = e.target.id;
@@ -58,20 +56,18 @@ function DisplayPosts (post) {
           fetch(`${ROOT_PATH_URL}/delete` + target, {
               method: "DELETE",
                 headers: { 
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
+                'Content-Type': 'application/json'
               }
               })
               .then((res)=>{
                   return res.json();
               })
               .then(() => {
-                const newArrayPosts = fetch(
+                const posts = fetch(
                     `${ROOT_PATH_URL}/post`, 
                     {method: 'GET',
                     headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: 'Bearer ' + token,
+                        'Content-Type': 'application/json'
                         }   
                     }
                     )
@@ -86,6 +82,9 @@ function DisplayPosts (post) {
               .catch((err)=>{
                   console.log(err)
           })
+        }    
+        
+        
 
     //     function AddLike(){
     //         like = 1
@@ -139,7 +138,7 @@ function DisplayPosts (post) {
     //           : <button onClick={CancelLike}>Like {post.likes}</button>
     // }
                 function Blog() {
-                    const sidebar = (
+                    const listOfPosts= (
                       <ul>
                         {posts.map((post) =>
                           <li key={post.id}>
@@ -157,7 +156,7 @@ function DisplayPosts (post) {
                         )}
                       </ul>
                     );
-                    console.log("sidebar", sidebar)
+                    console.log("listOfPosts", listOfPosts)
                 //     const content =  posts.map((post) =>
                 //     <post
                 //       key={post.id}
@@ -170,7 +169,7 @@ function DisplayPosts (post) {
                   
                     return (
                       <div>
-                        {sidebar}
+                        {listOfPosts}
                         <hr />
                         {/* {content} */}
                       </div>

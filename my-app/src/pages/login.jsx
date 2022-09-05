@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {ROOT_PATH_URL} from '../comonents/server.config';
+import {ROOT_PATH_URL} from '../components/server.config';
 
 export default function LogOrSign() {
     
