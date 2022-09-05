@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-//import { post } from '../../../back/app';
 import {ROOT_PATH_URL} from './server.config';
 
 function DisplayPosts (post) {

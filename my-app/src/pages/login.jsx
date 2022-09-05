@@ -1,127 +1,76 @@
-import React from "react";
+import React from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import {ROOT_PATH_URL} from '../comonents/server.config';
 
-import LogOrSign from '../components/logOrSign';
-
-
-export default function Login () {
-
-/*
-
-/*   
-import { useRef } from "react";
-function Login() {
-  const passwordRef = useRef();
-  const emailRef = useRef();
-  let navigate = useNavigate();
-  // const [errorEmail, setErrorEmail] = useState(null);
-  function handleSubmit(event) {
-    event.preventDefault();
-    const savedEmail = emailRef.current.value;
-    const savedPassword = passwordRef.current.value;
-    const formData = {
-      email: savedEmail,
-      password: savedPassword,
-    };
-    const urlSignIn = "http://localhost:3001/login";
-    fetch(urlSignIn, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-      body: JSON.stringify(formData),
-    }).then(function(res) {
-      if (res.ok) {
-        return res.json();
-      }
-    });
-
-    //redirect to feed page
-    navigate("/profile", { replace: true });
-  }
-  return (
-    <section className="signIn">
-      <h1>Connectez-vous</h1>
-      <form className="signIn__form">
-        <input type="email" placeholder="Email" ref={emailRef} />
-        <input type="password" placeholder="Mot de passe" ref={passwordRef} />
-        <button className="signIn--button" onClick={handleSubmit}>
-          Se connecter
-        </button>
-      </form>
-      <p>Pas encore de compte?</p>
-      {/*
-      <Link to="/signUp" className="signIn--button">
-        Créer un compte
-  </Link>*/
-/* </section>
-);
-} 
-export default Login
-
-
-
-export default function Login() {
-  const navigate = useNavigate();
-
-  const inputLogIn = useRef([])
-  const addInputLogIn = (el) => {
-    inputLogIn.current.push(el)
-  }
-
-  let [token, setToken] = React.useContext(TokenContext);
-  let [userId, setUserId] = React.useContext(IdContext);
-  let [name, setName] = React.useContext(NameContext);
-
-  setToken(undefined);
-  setUserId('');
-
-  const handleForm = (event) => {
-    event.preventDefault();
-    const email = inputLogIn.current[0];
-    const password = inputLogIn.current[1];
-
-    const requestOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify({
-        email: email.value,
-        password: password.value,
-      }),
+export default function LogOrSign() {
+    
+const [token, setToken] = useState({})
+const [userId, setUserId] = useState({})
+const [name, setName] = useState({})
+const [lSGet, setLSGet] = useState(JSON.parse(localStorage.getItem("LS")) || false);
+    
+    let [email, setEmail] = useState('');
+    let [password, setPassword] = useState('');
+    const navigate = useNavigate();
+    let url = new URL(window.location.href);
+    let hasAccount = undefined;
+    if(url.pathname === '/login'){
+        hasAccount = true
     }
-    fetch(
-      'http://localhost:3001/login',
-      requestOptions
+    else{
+        hasAccount = false
+    }
+
+    function ConnexionClick(e) {
+        e.preventDefault();
+        fetch(`${ROOT_PATH_URL}/login`, {
+            method: "POST",
+            headers: { 
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({email, password}),
+            })
+            .then((res)=>{
+                if(res.status===200) {
+                    console.log("Ok");
+                return res.json();
+                } else if(res.status===400) {
+                    alert('E-mail ou mot de passe invalide');
+                }
+                return Promise.reject();                
+            })
+            .then((res)=>{
+                console.log('res',res)
+                if(res) {
+                    localStorage.setItem('email', res.email);
+                    localStorage.setItem('userId', res.userId);
+                    localStorage.setItem('token', res.token);
+
+                    
+                    navigate('/homePage');
+                }
+
+            })
+            .catch((err)=>{
+                // afficher une erreur dans la console 
+                console.log(err)
+        })
+    }
+
+    return ( 
+        <div>
+           <div>
+                    <h2>Déjà inscrit ? Veuillez vous identifier</h2>
+                    <form method='post'>
+                        <label htmlFor='mail'>Email</label>
+                        <input type='text' id='mail' name='mail' value={email} required onChange={(e) => setEmail(e.target.value)}/>
+                        <label htmlFor='password'>Mot de passe</label>
+                        <input type='password' id='password' name='password' value={password} required onChange={(e) => setPassword(e.target.value)}/>
+                        <input type='submit' value='Connexion' onClick={ConnexionClick}/>
+                    </form>
+                </div>
+                
+        </div>
     )
-      .then((res) => res.json())
-      .then((data) => {
-        setToken(data.token);
-        setUserId(data.userId);
-        setName(data.name);
-        navigate('/homepage')
-      })
-      .catch(function (error) {
-        navigate('/')
-      })
-
-*/
-
-    return (
-      <>
-        <LogOrSign />
-      </>
-
-    )
-
-  }
-/* <h3>Vous avez déjà enregistré votre profil ? <br />Connectez-vous</h3>
-        
-<form className="signIn__form" onSubmit={handleForm}>
-        <input type="email" name="emailLogIn" placeholder="Email" ref={addInputLogIn}/>
-        <input type="password" name="passwordLogIn" placeholder="Mot de passe" ref={addInputLogIn} />
-        <input type="submit" className="signIn--button" value=" Se connecter"/>
-      </form>
-     
-</> */
+}

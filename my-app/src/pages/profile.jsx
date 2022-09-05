@@ -51,7 +51,6 @@ function Blog() {
             {post.message}
             {post.imageUrl}
             <div>
-                <button onClick={DeletePost}>Supprimer</button>
                 <button onClick={ModifyPost}>Modifier</button>
             </div>
           </li>
