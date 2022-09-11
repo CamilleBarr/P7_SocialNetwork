@@ -17,7 +17,7 @@ router.get('/modify/:id', auth, postControllers.getOnePost);
 router.put('/modify/:id', auth, multer, postControllers.updatePost);
 
 //---------- réponse retourné par le serveur en SUPPRESSION / DESTROY
-router.delete('/delete', auth, postControllers.deletePost);
+router.delete('/delete/post/:id', auth, postControllers.deletePost);
 
 //---------- réponse retournée par le serveur en LIKANT ou DISLIKE one sauce
 router.post('/like', auth, multer, postControllers.checkPost);

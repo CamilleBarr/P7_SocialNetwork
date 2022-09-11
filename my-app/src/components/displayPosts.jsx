@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import {useNavigate } from "react-router-dom";
 import {ROOT_PATH_URL} from './server.config';
 
 function DisplayPosts (post) {
 
     
     let userId = localStorage.getItem('userId');
+    let navigate = useNavigate();
     
     // const presentLike = (element) => element === userId;
     let like = undefined;
@@ -48,44 +50,67 @@ function DisplayPosts (post) {
     
         console.log(posts, "posts ?");
 
-        function DeletePost(e){
-            e.preventDefault()
-            let target = e.target.id;
-            console.log(target)
+        // function DeletePost(e){
+        //     e.preventDefault()
+        //     let target = e.target.id;
+        //     console.log(target)
         
-          fetch(`${ROOT_PATH_URL}/delete` + target, {
+        //   fetch(`${ROOT_PATH_URL}/delete` + target, {
+        //       method: "DELETE",
+        //         headers: { 
+        //         'Content-Type': 'application/json',
+        //         //'authorization' : `Bearer ${token}`
+        //       }
+        //       })
+        //       .then((res)=>{
+        //           return res.json();
+        //       })
+        //       .then(() => {
+        //         const newPostList = fetch(
+        //             `${ROOT_PATH_URL}/post`, 
+        //             {method: 'GET',
+        //             headers: {
+        //                 'Content-Type': 'application/json'
+        //                 }   
+        //             }
+        //             )
+        //             .then((res) =>  res.json())
+        //             .then(() => {
+        //                 let posts = posts.slice().sort(function (b, a) {
+        //                     return new Date(b.createdAt) - new Date(a.createdAt)
+        //                 })
+        //                 setPosts(posts)
+        //             })
+        //     })
+        //       .catch((err)=>{
+        //           console.log(err)
+        //   })
+        // }    
+        
+        function DeletePost(id){
+          console.log('totototototototo', id)
+          if(!id) {return }
+          let token = localStorage.getItem('token');
+
+          fetch(`http://localhost:3000/delete/post/${id}`, {
               method: "DELETE",
-                headers: { 
-                'Content-Type': 'application/json',
-                'authorization' : `Bearer ${token}`
-              }
-              })
-              .then((res)=>{
-                  return res.json();
-              })
-              .then(() => {
-                const newPostList = fetch(
-                    `${ROOT_PATH_URL}/post`, 
-                    {method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                        }   
-                    }
-                    )
-                    .then((res) =>  res.json())
-                    .then(() => {
-                        let posts = posts.slice().sort(function (b, a) {
-                            return new Date(b.createdAt) - new Date(a.createdAt)
-                        })
-                        setPosts(posts)
-                    })
+                 headers: { 
+              //     "Access-Control-Allow-Origin-Headers": "*",
+              //   //'Accept': 'application/json', 
+              //   //'Content-Type': 'application/json',
+                 'Authorization': `Bearer ${token}`
+               }
             })
+              .then((res)=> res.json(
+                console.log("res delete fetch: ", res),
+                
+              ))
               .catch((err)=>{
-                  console.log(err)
-          })
-        }    
-        
-        
+                  console.log(err, "rentré  dans func delt post front prob conn refused or headers ?")
+              })
+            console.log('test delete in front hors fetch')
+      }
+  
 
     //     function AddLike(){
     //         like = 1
@@ -142,13 +167,13 @@ function DisplayPosts (post) {
                     const listOfPosts= (
                       <ul>
                         {posts.map((post) =>
-                          <li key={post.id}>
+                          <li key={post._id}>
                             {post.title},
                             {post.message}
                             {post.imageUrl}
                             {like}
                             <div>
-                <button onClick={DeletePost}>Supprimer</button>
+                <button onClick={() => { DeletePost(post._id)}}>Supprimer</button>
                 {/* <button onClick={ModifyPost}>Modifier</button> */}
             </div>
                             
