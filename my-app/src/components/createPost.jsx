@@ -2,8 +2,8 @@ import React from 'react';
 import {useState} from 'react';
 import {ROOT_PATH_URL} from './server.config';
 
-function CreatePost() {
-
+function CreatePost(props) {
+    console.log('props', props)
     let [fileImg, setFileImg] = useState(null);
     let [message, setMessage] = useState("");
     let [title, setTitle] = useState("");
@@ -20,7 +20,6 @@ function CreatePost() {
         formData.append('title', title);
         if(fileImg){
             formData.append('image', fileImg[0]);
-           
         }
 
         fetch(`${ROOT_PATH_URL}/post`, {
@@ -30,9 +29,10 @@ function CreatePost() {
             },
             body: formData,
             })
-            .then((res)=>{
+            .then(async(res)=>{
                 if(res.ok){
                     console.log("Message posté avec succès");
+                    await props.getAllpostAPi()
                     return res.json();
                 }
             })

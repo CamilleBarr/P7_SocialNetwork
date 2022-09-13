@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import {useNavigate } from "react-router-dom";
 import {ROOT_PATH_URL} from './server.config';
+import {getListPost} from './../api/Posts/getAllpost';
 
-function DisplayPosts (post) {
-
+function DisplayPosts (props) {
+    const { postList } = props;
     
     let userId = localStorage.getItem('userId');
+    let isAdmin = localStorage.getItem('isAdmin');
+    
     let navigate = useNavigate();
     
     // const presentLike = (element) => element === userId;
@@ -16,7 +19,6 @@ function DisplayPosts (post) {
     // let [isLiked, setIsLiked] = useState(findLike);
     
 
-    const [posts, setPosts] = useState([]);
     let token = localStorage.getItem('token');
     const messageText = "Lisez les messages déjà postés :"
     const noMessageText = "Personne n'a encore laissé de message. Soyez le premier ?";
@@ -24,31 +26,7 @@ function DisplayPosts (post) {
     function errMessage(){
         return (<h2>Nous avons une erreur de chargement. Merci de recharger la page ultérieurement</h2>)
     }
-    
-   
-    useEffect(()=> {
-        console.log('test useeffect display post')
-        fetch(`${ROOT_PATH_URL}/homepage`, {
-            method : "GET",
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-
-            })
-            .then((res)=> res.json())
-            .then((posts)=> {
-
-                console.log('test .then posts of useeffect fun', posts)
-                setPosts(posts)
-            })
-            .catch((error)=>{
-                console.log('error', error)
-                errMessage();
-            });
-        
-        }, []);
-    
-        console.log(posts, "posts ?");
+  
 
         // function DeletePost(e){
         //     e.preventDefault()
@@ -92,7 +70,7 @@ function DisplayPosts (post) {
           if(!id) {return }
           let token = localStorage.getItem('token');
 
-          fetch(`http://localhost:3000/delete/post/${id}`, {
+          fetch(`${ROOT_PATH_URL}/delete/post/${id}`, {
               method: "DELETE",
                  headers: { 
               //     "Access-Control-Allow-Origin-Headers": "*",
@@ -101,9 +79,9 @@ function DisplayPosts (post) {
                  'Authorization': `Bearer ${token}`
                }
             })
-              .then((res)=> res.json(
+              .then(async (res)=> res.json(
                 console.log("res delete fetch: ", res),
-                
+                await props.getAllpostAPi()
               ))
               .catch((err)=>{
                   console.log(err, "rentré  dans func delt post front prob conn refused or headers ?")
@@ -166,18 +144,17 @@ function DisplayPosts (post) {
                 function Blog() {
                     const listOfPosts= (
                       <ul>
-                        {posts.map((post) =>
+                        {postList.map((post) =>
                           <li key={post._id}>
+                            {post._id},
                             {post.title},
                             {post.message}
                             {post.imageUrl}
                             {like}
                             <div>
-                <button onClick={() => { DeletePost(post._id)}}>Supprimer</button>
-                {/* <button onClick={ModifyPost}>Modifier</button> */}
-            </div>
-                            
-                            
+                              <button onClick={() => { DeletePost(post._id)}}>Supprimer</button>
+                              {post.userId === userId  && <button onClick={() => {}}>Modifier</button> }
+                            </div>  
                           </li>
                         )}
                       </ul>
@@ -199,12 +176,12 @@ function DisplayPosts (post) {
                         <hr />
                         {/* {content} */}
                       </div>
-                    );console.log("post.id :", post.id)
+                    );
                   }
                   
     return (
       <>
-        <Blog posts={posts} />
+        <Blog posts={postList} />
         {/* <div>
             {posts?.length > 0} 
             

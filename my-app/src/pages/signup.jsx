@@ -41,6 +41,7 @@ export default function SignUp() {
                 if(res=== 200) {
                     localStorage.setItem('userId', res.userId);
                     localStorage.setItem('token', res.token);
+                    localStorage.setItem('isAdmin', res.isAdmin);
                 
                     navigate('/login');
                 }

@@ -45,8 +45,8 @@ if(true) {
 
 //---------- connexion à la plateforme avec vérification compte existant et verification password
 // avec gestion d'erreur d'exécution de la requete au serveur, err verif mot de passe, err user not exist
-exports.login = async (req, res, next) => {
-    console.log("email loging up : ", req.body);
+exports.login =  (req, res, next) => {
+    console.log("email body up : ", req.body);
 
     console.log("email loging up : ", req.body.email);
     console.log("pwd in loging up: ", req.body.password);

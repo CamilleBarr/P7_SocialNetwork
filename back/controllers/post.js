@@ -2,12 +2,10 @@ const Post = require('../models/post');
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-//const post = require('../models/post');
 const dotenv = require("dotenv").config();
 
 exports.createPost = (req, res, next) => {
     console.log('coucouc',  req.body)
-    //delete postObject._userId;
     const post = new Post({
         title: req.body.title,
         userId: req.body.userId,
@@ -55,10 +53,7 @@ exports.updatePost = (req, res, next) => {
     }
 };
 
-
-
 exports.getAllPosts = (req, res, next) => {
-    
     Post.find()
         .then((posts) => {
             posts.sort((a, b) => b.date - a.date);
@@ -70,56 +65,23 @@ exports.getAllPosts = (req, res, next) => {
 };
 
 exports.deletePost = ('delete/post/:id', (req, res, next) => {
-    Post.findOne({ id: req.params.id })//--On trouve l'objet dans la base de données 
-        
+    Post.findOne({ "_id" : req.params.id })//--On trouve l'objet dans la base de données 
         .then((Post)  => {
-   console.log('req.params',req.params.currentUser)
-
+            console.log('req.params',Post)
             const {userId, isAdmin} = req.params.currentUser;
-            
             console.log('Post.userId !== req.body.userId', Post.userId , userId)
             console.log('req.body.userId !== process.env.DB_ADMIN', isAdmin , false)
-          if (Post.userId !== userId && isAdmin !== true) {
+            if (Post.userId !== userId && isAdmin !== true) {
               return res.status(403).json({ message: 'Requête non autorisée !'})
-          }else {
-            //const filename = post.imageUrl.split('/images/')[1];//--Ici, split renvoit un tableau composé de deux éléments. 1- Ce qu'il y avant /images/ et un deuxième élément avec ce qu'il y après /images/
-            //fs.unlink(`images/${filename}`, () => {//--unlink est une fonction de fs (file système qui permet de supprimer un fichier``)
-                Post.deleteOne(req.params.id)//--Ici, pas besoin de 2eme argument car c'est une suppression
+            }else {
+                Post.deleteOne({ "_id" : req.params.id })//--Ici, pas besoin de 2eme argument car c'est une suppression
                     .then(() => res.status(200).json({ message: 'Post supprimé !'}))
                     .catch(error => res.status(400).json({ error }));
-           // });
-          }})
-       
-          .catch(error => res.status(500).json({ error }));
-});console.log("test back delete export haut d'export");
-//     
-//      const postObject = 
-//      req.body.userId == post.userId || req.body.userId == process.env.DB_ADMIN ? {
-//          ...Post,
-//          imageUrl: (req.file?`${req.protocol}://${req.get("host")}/images/${req.file.filename}`:null)
-//      } : {
-//          ...req.body
-//      };
-// //    let userId = req.body.userId || process.env.DB_ADMIN;
-//      Post.findOne(
-//         {id: req.params.id }
-//         )
-//         .then(Post => {
-//             //if((Post.userId == id) || (id === process.env.DB_ADMIN)){
-//                 Post.deleteOne({ id: req.body.userId })
-//                     .then(() => res.status(201).json({ message: 'Post supprimé !'}))
-//                     .catch(error => res.status(400).json({ error }));
-//             //} 
-//             //else{
-//                 res.status(401).json({message: 'Utilisateur non authentifié'});
-//             //}
-//         })
-//         .catch(error => res.status(400).json({
-//             error
-//             })
-//         );
-//     console.log("test delete post fron back bas d'export")
-// });
+                }
+        })
+        .catch(error => res.status(500).json({ error }));
+    });
+console.log("test back delete export haut d'export");
 
 
 exports.checkPost = (req, res, next) => {

@@ -10,8 +10,8 @@ export default function LogOrSign() {
     const [name, setName] = useState({})
     const [lSGet, setLSGet] = useState(JSON.parse(localStorage.getItem("LS")) || false);
     
-    let [email, setEmail] = useState('');
-    let [password, setPassword] = useState('');
+    let [email, setEmail] = useState('admin@groupomania.com');
+    let [password, setPassword] = useState('@dminGr0upomania');
     const navigate = useNavigate();
     let url = new URL(window.location.href);
     let hasAccount = undefined;
